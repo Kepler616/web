@@ -244,6 +244,19 @@ color: #d1d5db;
 font-size: 0.97rem;
 }
 
+.tools-logos {
+display: flex;
+flex-wrap: wrap;
+gap: 1.5rem;
+align-items: center;
+margin-top: 1rem;
+}
+
+.tools-logos img {
+height: 40px;
+width: auto;
+}
+
 .skills-grid {
 display: grid;
 grid-template-columns: repeat(3, minmax(0, 1fr));
