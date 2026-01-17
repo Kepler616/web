@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake Game Demo</title>
+<style>
+#snake-game-container canvas {
+width: 600px;
+height: 600px;
+display: block;
+}
+</style>
+</head>
+<body style="margin:0;background:#0b1120;">
+<header class="site-header" style="position:sticky;top:0;padding:1rem 0;background:#0b1120;border-bottom:1px solid #1f2937;">
+<div class="container" style="max-width:960px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;">
+<strong style="color:#e5e7eb;">Snake Demo</strong>
+<nav style="display:flex;gap:1rem;">
+<a href="services/live-demos.html" style="color:#e5e7eb;">Home</a>
+</nav>
+</div>
+</header>
+<main class="section" style="padding:2rem 0;">
+<div class="container" style="max-width:960px;margin:0 auto;padding:0 1.5rem;">
+<div id="snake-game-container" style="display:flex;align-items:center;justify-content:center;border:1px solid #1f2937;border-radius:12px;background:#020617;padding:1rem;"></div>
+</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.0/dist/phaser.min.js"></script>
+<script src="assets/games/snake/snake.js"></script>
+</body>
+</html>
