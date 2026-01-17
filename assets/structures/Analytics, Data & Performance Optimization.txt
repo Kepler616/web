@@ -1,0 +1,43 @@
+# Analytics, Data & Performance Optimization
+
+## Introduction
+
+Analytics, Data & Performance Optimization is a service focused on transforming raw data into clear insights that drive better decisions. Instead of relying on assumptions, this service uses measurable performance indicators to understand how users interact with your website and where improvements will have the greatest impact.
+
+It connects analytics, behavior tracking, and performance metrics into a unified system that supports continuous optimization.
+
+## Key Features
+
+### Analytics Setup & Configuration
+Implementation and validation of analytics tools to ensure accurate tracking of traffic, user behavior, conversions, and key events.
+
+### Data Interpretation & Insights
+Analysis of collected data to identify patterns, opportunities, and issues that affect visibility, engagement, and conversions.
+
+### Performance Monitoring
+Ongoing evaluation of site speed, Core Web Vitals, and technical performance metrics that influence user experience and search rankings.
+
+### Conversion Optimization
+Identification of friction points within user journeys and recommendations to improve flow, clarity, and conversion rates.
+
+### Reporting & Actionable Dashboards
+Creation of clear reports and dashboards that focus on meaningful metrics, not vanity numbers.
+
+## Why It Matters
+
+Without proper analytics, optimization becomes guesswork. Data reveals how real users experience your website and highlights where effort should be focused for maximum return.
+
+Performance optimization improves both user satisfaction and search visibility. Faster, clearer, and more reliable experiences lead to better engagement, higher conversions, and stronger long term results.
+
+This service ensures decisions are driven by evidence, not assumptions, and that improvements are measurable and repeatable.
+
+## Contact or CTA
+
+If you want to understand what is working, what is not, and how to improve with confidence, this service provides the clarity you need.
+
+**Let’s turn your data into a performance advantage.**
+
+**Contact Information**
+- 📞 +57 316 657 3216  
+- 📞 +57 302 743 9538  
+- ✉️ kendall.mendoza98@gmail.com
