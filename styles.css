@@ -42,11 +42,11 @@ background: radial-gradient(circle at top left, #1d4ed8, #020617);
 color: #e5e7eb;
 padding: 2.5rem 0 2rem;
 border-bottom: 1px solid rgba(148, 163, 184, 0.5);
-position: sticky;
-top: 0;
-z-index: 10;
-backdrop-filter: blur(10px);
-background-color: rgba(15, 23, 42, 0.95);
+position: static;
+top: auto;
+z-index: auto;
+backdrop-filter: none;
+background-color: #0b1120;
 }
 
 .header-main {
@@ -91,6 +91,47 @@ color: #e5e7eb;
 
 .main-nav a:hover {
 color: #bfdbfe;
+}
+
+.nav-demo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(to right, #1d4ed8, #0ea5e9);
+  color: #eff6ff;
+  font-size: 0.85rem;
+  border: none;
+  position: relative;
+  z-index: 0;
+}
+
+.nav-demo:hover {
+  background: linear-gradient(to right, #2563eb, #22c55e);
+  color: #eff6ff;
+}
+
+.nav-demo::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 180deg,
+    #22c55e,
+    #eab308,
+    #3b82f6,
+    #a855f7,
+    #22c55e
+  );
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: -1;
+}
+
+.nav-demo:hover::before {
+  opacity: 1;
 }
 
 .nav-item {
@@ -238,6 +279,25 @@ scroll-margin-top: 15rem;
   color: #e5e7eb;
 }
 
+.demo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #60a5fa;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(37, 99, 235, 0.25);
+  color: #bfdbfe;
+}
+
+.demo-badge:hover {
+  background: rgba(59, 130, 246, 0.4);
+}
+
 .section p,
 .section li {
 color: #d1d5db;
@@ -250,6 +310,7 @@ flex-wrap: wrap;
 gap: 1.5rem;
 align-items: center;
 margin-top: 1rem;
+margin-bottom: 1.75rem;
 }
 
 .tools-logos img {
@@ -465,6 +526,71 @@ padding-left: 1rem;
 
 .section .simple-list + .button {
   margin-top: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-2 {
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: flex-start;
+}
+
+.card {
+  border-radius: 0.75rem;
+  border: 1px solid #1f2937;
+  padding: 1rem 1.25rem;
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), rgba(15, 23, 42, 0.9));
+}
+
+.card-header {
+  margin-bottom: 0.75rem;
+}
+
+.card-header h3 {
+  font-size: 1.05rem;
+  color: #e5e7eb;
+}
+
+.card-header p {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.card-body {
+  font-size: 0.9rem;
+  color: #d1d5db;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table th,
+.table td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid #111827;
+  text-align: left;
+}
+
+.table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9ca3af;
+}
+
+.table tr:hover {
+  background-color: rgba(55, 65, 81, 0.5);
 }
 
 .cta-buttons {

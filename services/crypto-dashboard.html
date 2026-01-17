@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Real-Time Dashboard Demo | Kendall Mendoza</title>
+<link rel="stylesheet" href="../styles.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="../assets/icons/favicon_io/site.webmanifest">
+<link rel="icon" href="../assets/icons/favicon_io/favicon.ico">
+</head>
+<body>
+<header class="site-header">
+<div class="container header-content">
+<div class="header-main">
+<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
+<div>
+<h1 class="name">KENDALL MENDOZA</h1>
+<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
+<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
+<p class="location lang-en">Remote | Colombia</p>
+<p class="location lang-es">Remoto | Colombia</p>
+</div>
+</div>
+<div class="header-bottom">
+<nav class="main-nav">
+<a href="../index.html#summary" class="lang-en">Home</a>
+<a href="../index.html#summary" class="lang-es">Inicio</a>
+<a href="../index.html#services" class="lang-en">Services</a>
+<a href="../index.html#services" class="lang-es">Servicios</a>
+<a href="../about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
+<a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="../services/live-demos.html" class="lang-en nav-demo">Demo</a>
+<a href="../services/live-demos.html" class="lang-es nav-demo">Demo</a>
+<select id="language-select" class="language-select">
+<option value="en" selected>English</option>
+<option value="es">Español</option>
+</select>
+</nav>
+</div>
+</div>
+</header>
+<main>
+<section class="section section-alt">
+<div class="container">
+<h2 class="lang-en">Crypto Real-Time Admin Dashboard <a href="#crypto-dashboard-root" class="demo-badge">Demo</a></h2>
+<h2 class="lang-es">Crypto Real-Time Admin Dashboard <a href="#crypto-dashboard-root" class="demo-badge">Demo</a></h2>
+<p class="lang-en">Demo dashboard that consumes a Cloudflare Worker backend to read normalized crypto market data.</p>
+<p class="lang-es">Dashboard de demostración que consume un backend en Cloudflare Workers para leer datos normalizados de mercado cripto.</p>
+<p class="lang-en">The data refreshes every 10 seconds and is limited to a curated list of assets for this demo.</p>
+<p class="lang-es">Los datos se actualizan cada 10 segundos y están limitados a una lista curada de activos para este demo.</p>
+<p class="lang-en">This page is for demonstration purposes only and does not provide financial advice.</p>
+<p class="lang-es">Esta página existe solo con fines de demostración y no constituye asesoría financiera.</p>
+<p class="lang-en"><a href="crypto-dashboard-terms.html">Read demo terms of use</a></p>
+<p class="lang-es"><a href="crypto-dashboard-terms.html">Leer términos de uso del demo</a></p>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div id="crypto-dashboard-root"></div>
+</div>
+</section>
+<section class="section section-alt">
+<div class="container">
+<h2 class="lang-en">Project Overview</h2>
+<h2 class="lang-es">Project Overview</h2>
+<p class="lang-en">This demo showcases a small end-to-end system that reads normalized crypto market data from a Cloudflare Worker and renders a simple React-based dashboard with a 10 second refresh cadence.</p>
+<p class="lang-es">Este demo muestra un sistema pequeño de punta a punta que lee datos de mercado cripto normalizados desde un Cloudflare Worker y renderiza un dashboard sencillo en React con una cadencia de actualización de 10 segundos.</p>
+<h3 class="lang-en">Tools</h3>
+<h3 class="lang-es">Herramientas</h3>
+<div class="tools-logos">
+<img class="lang-en" src="../assets/icons/cloudflare workers.png" alt="Cloudflare Workers">
+<img class="lang-es" src="../assets/icons/cloudflare workers.png" alt="Cloudflare Workers para backend y edge">
+<img class="lang-en" src="../assets/icons/wrangler CLI.png" alt="Wrangler CLI">
+<img class="lang-es" src="../assets/icons/wrangler CLI.png" alt="Wrangler CLI para despliegue">
+<img class="lang-en" src="../assets/icons/Typescript.png" alt="TypeScript">
+<img class="lang-es" src="../assets/icons/Typescript.png" alt="TypeScript para el Worker">
+<img class="lang-en" src="../assets/icons/React-icon.png" alt="React">
+<img class="lang-es" src="../assets/icons/React-icon.png" alt="React en el frontend">
+<img class="lang-en" src="../assets/icons/CoinGecko_logo.png" alt="CoinGecko API">
+<img class="lang-es" src="../assets/icons/CoinGecko_logo.png" alt="API pública de CoinGecko">
+<img class="lang-en" src="../assets/icons/github.png" alt="GitHub Pages">
+<img class="lang-es" src="../assets/icons/github.png" alt="GitHub Pages para hosting">
+</div>
+<h3 class="lang-en">Challenges and how they were solved</h3>
+<h3 class="lang-es">Retos y cómo se resolvieron</h3>
+<ul class="simple-list">
+<li class="lang-en"><strong>Local permissions and environment constraints</strong><br>File edits were restricted outside the web project directory and Node/npm were not available in the assistant environment. The solution was to drive setup from the user’s machine: initialize the Worker locally, install Wrangler, and keep portfolio edits within the web project.</li>
+<li class="lang-es"><strong>Restricciones de permisos y entorno local</strong><br>Ediciones de archivos restringidas fuera del directorio web y ausencia de Node/npm en el entorno del asistente. La solución fue realizar la configuración desde la máquina del usuario: inicializar el Worker localmente, instalar Wrangler y mantener los cambios del portafolio dentro del proyecto web.</li>
+<li class="lang-en"><strong>PowerShell execution policy blocking npx</strong><br>PowerShell refused to run npx due to execution policy. The workaround was to use the Node.js command prompt or update the execution policy, enabling Wrangler commands.</li>
+<li class="lang-es"><strong>Política de ejecución de PowerShell bloqueando npx</strong><br>PowerShell no permitía ejecutar npx por la política de ejecución. Se solucionó usando el Node.js command prompt o ajustando la política de ejecución para habilitar los comandos de Wrangler.</li>
+<li class="lang-en"><strong>Upstream errors from the public API</strong><br>Initial calls from the Worker returned non-2xx statuses. I added friendly headers (Accept and User-Agent), short-lived edge caching, and debug responses to inspect status and body, then confirmed normalized JSON in production.</li>
+<li class="lang-es"><strong>Errores upstream de la API pública</strong><br>Las llamadas iniciales del Worker devolvían estados no 2xx. Se agregaron cabeceras amigables (Accept y User-Agent), caché de corta duración en el edge y respuestas de debug para inspeccionar status y body, confirmando JSON normalizado en producción.</li>
+<li class="lang-en"><strong>Frontend status messaging</strong><br>The UI showed “Data error” even with valid data present. I refined the connection state to consider whether assets and chart points are loaded, switching to “Live data connected” whenever there is usable data.</li>
+<li class="lang-es"><strong>Mensajería de estado en frontend</strong><br>La UI mostraba “Data error” aun con datos válidos presentes. Se ajustó el estado de conexión para considerar si hay assets y puntos de gráfico cargados, cambiando a “Live data connected” cuando hay datos utilizables.</li>
+<li class="lang-en"><strong>Clean separation of concerns</strong><br>The Worker exposes a narrow, normalized JSON surface; the frontend merges static asset catalog with live fields and renders via React + SVG. This made debugging and iteration straightforward.</li>
+<li class="lang-es"><strong>Separación clara de responsabilidades</strong><br>El Worker expone una superficie JSON normalizada y pequeña; el frontend combina un catálogo estático con campos en vivo y renderiza con React + SVG. Esto facilitó la depuración y la iteración.</li>
+</ul>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-content">
+<p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
+<p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
+<nav class="footer-nav">
+<a href="../index.html#summary" class="lang-en">Home</a>
+<a href="../index.html#summary" class="lang-es">Inicio</a>
+<a href="../index.html#services" class="lang-en">Services</a>
+<a href="../index.html#services" class="lang-es">Servicios</a>
+<a href="../about.html" class="lang-en">About me</a>
+<a href="../about.html" class="lang-es">Sobre mí</a>
+</nav>
+</div>
+</footer>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script>
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+yearSpan.textContent = new Date().getFullYear();
+}
+const languageSelect = document.getElementById("language-select");
+if (languageSelect) {
+languageSelect.addEventListener("change", function () {
+var value = languageSelect.value === "es" ? "es" : "en";
+document.documentElement.setAttribute("data-lang", value);
+document.documentElement.setAttribute("lang", value);
+});
+}
+</script>
+<script type="text/babel">
+const API_BASE_URL = "https://crypto-rt-dashboard.kenport.workers.dev";
+const ASSETS = [
+{ id: "bitcoin", symbol: "BTC", name: "Bitcoin" },
+{ id: "ethereum", symbol: "ETH", name: "Ethereum" },
+{ id: "solana", symbol: "SOL", name: "Solana" },
+{ id: "cardano", symbol: "ADA", name: "Cardano" },
+{ id: "binancecoin", symbol: "BNB", name: "Binance Coin" },
+{ id: "ripple", symbol: "XRP", name: "Ripple" },
+{ id: "dogecoin", symbol: "DOGE", name: "Dogecoin" },
+{ id: "avalanche-2", symbol: "AVAX", name: "Avalanche" },
+{ id: "polkadot", symbol: "DOT", name: "Polkadot" },
+{ id: "matic-network", symbol: "MATIC", name: "Polygon" }
+];
+const REFRESH_INTERVAL_MS = 10000;
+function usePolling(url, intervalMs) {
+const [state, setState] = React.useState({ loading: true, error: null, data: null });
+React.useEffect(function () {
+let cancelled = false;
+function fetchData() {
+setState({ loading: true, error: null, data: null });
+fetch(url)
+.then(function (response) {
+if (!response.ok) {
+throw new Error("Network error " + response.status);
+}
+return response.json();
+})
+.then(function (json) {
+if (!cancelled) {
+setState({ loading: false, error: null, data: json });
+}
+})
+.catch(function (err) {
+if (!cancelled) {
+setState(function (current) {
+return { loading: false, error: err.message, data: current.data };
+});
+}
+});
+}
+fetchData();
+var id = setInterval(fetchData, intervalMs);
+return function () {
+cancelled = true;
+clearInterval(id);
+};
+}, [url, intervalMs]);
+return state;
+}
+function formatNumber(value) {
+if (value == null) {
+return "–";
+}
+var abs = Math.abs(value);
+if (abs >= 1000000000) {
+return (value / 1000000000).toFixed(1) + "B";
+}
+if (abs >= 1000000) {
+return (value / 1000000).toFixed(1) + "M";
+}
+if (abs >= 1000) {
+return (value / 1000).toFixed(1) + "K";
+}
+return value.toFixed(2);
+}
+function formatPercent(value) {
+if (value == null) {
+return "–";
+}
+return value.toFixed(2) + "%";
+}
+function AssetsTable(props) {
+var assets = props.assets;
+var filter = props.filter;
+var onSelect = props.onSelect;
+var selectedId = props.selectedId;
+var filtered = assets.filter(function (asset) {
+if (!filter) {
+return true;
+}
+var value = filter.toLowerCase();
+return asset.symbol.toLowerCase().indexOf(value) !== -1 || asset.name.toLowerCase().indexOf(value) !== -1;
+});
+return React.createElement(
+"div",
+{ className: "card" },
+React.createElement(
+"div",
+{ className: "card-header" },
+React.createElement(
+"h3",
+null,
+"Assets"
+),
+React.createElement(
+"p",
+null,
+"Filtered by symbol or name, max 10 assets."
+)
+),
+React.createElement(
+"div",
+{ className: "card-body" },
+React.createElement(
+"input",
+{
+type: "text",
+value: filter,
+onChange: function (event) {
+onSelect(selectedId, event.target.value);
+},
+placeholder: "Filter by symbol, for example BTC or ETH",
+style: { width: "100%", marginBottom: "0.75rem" }
+}
+),
+React.createElement(
+"div",
+{ className: "table-wrapper" },
+React.createElement(
+"table",
+{ className: "table" },
+React.createElement(
+"thead",
+null,
+React.createElement(
+"tr",
+null,
+React.createElement(
+"th",
+null,
+"Asset"
+),
+React.createElement(
+"th",
+null,
+"Price"
+),
+React.createElement(
+"th",
+null,
+"24h"
+),
+React.createElement(
+"th",
+null,
+"Volume"
+)
+)
+),
+React.createElement(
+"tbody",
+null,
+filtered.map(function (asset) {
+var isSelected = asset.id === selectedId;
+return React.createElement(
+"tr",
+{
+key: asset.id,
+onClick: function () {
+onSelect(asset.id, filter);
+},
+style: { cursor: "pointer", backgroundColor: isSelected ? "rgba(59,130,246,0.08)" : "transparent" }
+},
+React.createElement(
+"td",
+null,
+asset.name,
+" ",
+"(",
+asset.symbol,
+")"
+),
+React.createElement(
+"td",
+null,
+asset.price != null ? "$" + asset.price.toFixed(2) : "–"
+),
+React.createElement(
+"td",
+{ style: { color: asset.change24h > 0 ? "#16a34a" : asset.change24h < 0 ? "#dc2626" : "inherit" } },
+formatPercent(asset.change24h)
+),
+React.createElement(
+"td",
+null,
+formatNumber(asset.volume24h)
+)
+);
+})
+)
+)
+)
+)
+);
+}
+function LineChart(props) {
+var points = props.points;
+if (!points || points.length === 0) {
+return React.createElement("div", null, "No chart data yet.");
+}
+var width = 600;
+var height = 240;
+var xs = points.map(function (p) {
+return p.time;
+});
+var ys = points.map(function (p) {
+return p.price;
+});
+var minX = Math.min.apply(null, xs);
+var maxX = Math.max.apply(null, xs);
+var minY = Math.min.apply(null, ys);
+var maxY = Math.max.apply(null, ys);
+var rangeX = maxX - minX || 1;
+var rangeY = maxY - minY || 1;
+var svgPoints = points.map(function (p) {
+var x = ((p.time - minX) / rangeX) * width;
+var y = height - ((p.price - minY) / rangeY) * height;
+return x + "," + y;
+}).join(" ");
+return React.createElement(
+"svg",
+{ width: width, height: height, style: { width: "100%", maxWidth: "100%" } },
+React.createElement("polyline", {
+fill: "none",
+stroke: "#3b82f6",
+strokeWidth: 2,
+points: svgPoints
+})
+);
+}
+function Dashboard() {
+var initialAssetId = ASSETS[0].id;
+var _React$useState = React.useState(initialAssetId);
+var selectedAssetId = _React$useState[0];
+var setSelectedAssetId = _React$useState[1];
+var _React$useState2 = React.useState("");
+var filter = _React$useState2[0];
+var setFilter = _React$useState2[1];
+var _React$useState3 = React.useState(null);
+var lastUpdated = _React$useState3[0];
+var setLastUpdated = _React$useState3[1];
+var assetsUrl = API_BASE_URL + "/api/markets?ids=" + ASSETS.map(function (asset) {
+return asset.id;
+}).join(",");
+var assetsState = usePolling(assetsUrl, REFRESH_INTERVAL_MS);
+var chartUrl = API_BASE_URL + "/api/asset/" + selectedAssetId + "/chart?days=1";
+var chartState = usePolling(chartUrl, REFRESH_INTERVAL_MS);
+React.useEffect(function () {
+if (!assetsState.loading && !chartState.loading && !assetsState.error && !chartState.error && assetsState.data && assetsState.data.assets && assetsState.data.assets.length && chartState.data && chartState.data.points && chartState.data.points.length) {
+setLastUpdated(new Date());
+}
+}, [assetsState.loading, chartState.loading, assetsState.error, chartState.error, assetsState.data, chartState.data]);
+var mergedAssets = ASSETS.map(function (asset) {
+var match = assetsState.data && assetsState.data.assets ? assetsState.data.assets.find(function (item) {
+return item.id === asset.id;
+}) : null;
+return {
+id: asset.id,
+symbol: asset.symbol,
+name: asset.name,
+price: match ? match.priceUsd : null,
+change24h: match ? match.changePercent24h : null,
+volume24h: match ? match.volume24hUsd : null
+};
+});
+var selectedAsset = mergedAssets.find(function (asset) {
+return asset.id === selectedAssetId;
+});
+var chartPoints = chartState.data && chartState.data.points ? chartState.data.points.map(function (point) {
+return { time: point.time, price: point.priceUsd };
+}) : [];
+var connectionState;
+var hasAssetsData = !!(assetsState.data && assetsState.data.assets && assetsState.data.assets.length);
+var hasChartData = !!(chartState.data && chartState.data.points && chartState.data.points.length);
+if (assetsState.loading || chartState.loading) {
+connectionState = "Loading market data, refreshing every 10 seconds.";
+} else if ((assetsState.error || chartState.error) && !(hasAssetsData && hasChartData)) {
+connectionState = "Data error, retrying in 10 seconds.";
+} else {
+connectionState = "Live data connected, refreshed every 10 seconds.";
+}
+return React.createElement(
+"div",
+{ className: "grid grid-2" },
+React.createElement(
+"div",
+null,
+React.createElement(AssetsTable, {
+assets: mergedAssets,
+filter: filter,
+selectedId: selectedAssetId,
+onSelect: function (id, nextFilter) {
+setSelectedAssetId(id);
+setFilter(nextFilter);
+}
+})
+),
+React.createElement(
+"div",
+null,
+React.createElement(
+"div",
+{ className: "card" },
+React.createElement(
+"div",
+{ className: "card-header" },
+React.createElement(
+"h3",
+null,
+selectedAsset ? selectedAsset.name + " (" + selectedAsset.symbol + ")" : "Select an asset"
+),
+React.createElement(
+"p",
+null,
+connectionState
+)
+),
+React.createElement(
+"div",
+{ className: "card-body" },
+React.createElement(LineChart, { points: chartPoints }),
+React.createElement(
+"p",
+{ style: { marginTop: "0.75rem", fontSize: "0.875rem", color: "#6b7280" } },
+"This demo polls the backend every 10 seconds and shows normalized data only."
+),
+React.createElement(
+"p",
+{ style: { marginTop: "0.25rem", fontSize: "0.8rem", color: "#9ca3af" } },
+lastUpdated ? "Last update: " + lastUpdated.toLocaleTimeString() : "Waiting for first update."
+)
+)
+)
+)
+);
+}
+ReactDOM.createRoot(document.getElementById("crypto-dashboard-root")).render(React.createElement(Dashboard));
+</script>
+</body>
+</html>
