@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Demo Dashboard | Kendall Mendoza</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="assets/icons/favicon_io/site.webmanifest">
+<link rel="icon" href="assets/icons/favicon_io/favicon.ico">
+</head>
+<body>
+<header class="site-header">
+<div class="container header-content">
+<div class="header-main">
+<img src="assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
+<div>
+<h1 class="name">KENDALL MENDOZA</h1>
+<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
+<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
+<p class="location lang-en">Remote | Colombia</p>
+<p class="location lang-es">Remoto | Colombia</p>
+</div>
+</div>
+<div class="header-bottom">
+<nav class="main-nav">
+<a href="index.html#summary" class="lang-en">Home</a>
+<a href="index.html#summary" class="lang-es">Inicio</a>
+<a href="index.html#services" class="lang-en">Services</a>
+<a href="index.html#services" class="lang-es">Servicios</a>
+<a href="about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
+<a href="about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="services/live-demos.html" class="lang-en nav-demo">Demo</a>
+<a href="services/live-demos.html" class="lang-es nav-demo">Demo</a>
+<a href="login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
+<a href="login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
+<select id="language-select" class="language-select">
+<option value="en" selected>English</option>
+<option value="es">Español</option>
+</select>
+</nav>
+</div>
+</div>
+</header>
+<main>
+<section class="section section-alt">
+<div class="container">
+<h2 class="lang-en">Admin demo dashboard</h2>
+<h2 class="lang-es">Panel de administración demo</h2>
+<p class="lang-en">This page showcases a small admin-style surface on top of the demo authentication layer. It is intended for demonstration only and is not a production management tool.</p>
+<p class="lang-es">Esta página muestra una pequeña superficie tipo panel de administración sobre la capa de autenticación de demo. Es solo para demostración y no es una herramienta de gestión en producción.</p>
+<p class="lang-en">Only demo admin users should be able to access the backing endpoints. Non-admin accounts will see authorization errors returned by the backend.</p>
+<p class="lang-es">Solo usuarios admin de demo deberían poder acceder a los endpoints subyacentes. Las cuentas que no sean admin verán errores de autorización devueltos por el backend.</p>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div class="grid">
+<div class="card">
+<div class="card-header">
+<h3 class="lang-en">Demo users</h3>
+<h3 class="lang-es">Usuarios de demo</h3>
+<p class="lang-en">Inspect and manage demo accounts that interact with the Snake and Mini Paint experiences.</p>
+<p class="lang-es">Inspecciona y gestiona cuentas de demo que interactúan con las experiencias de Snake y Mini Paint.</p>
+</div>
+<div class="card-body">
+<p id="admin-users-status-en" class="lang-en"></p>
+<p id="admin-users-status-es" class="lang-es"></p>
+<div class="table-wrapper" style="margin-top:0.75rem;">
+<table class="table" id="admin-users-table">
+<thead>
+<tr>
+<th class="lang-en">User</th>
+<th class="lang-es">Usuario</th>
+<th class="lang-en">Role</th>
+<th class="lang-es">Rol</th>
+<th class="lang-en">Last activity</th>
+<th class="lang-es">Última actividad</th>
+<th class="lang-en">Actions</th>
+<th class="lang-es">Acciones</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div style="margin-top:0.75rem;">
+<h4 class="lang-en">Create demo user</h4>
+<h4 class="lang-es">Crear usuario de demo</h4>
+<form id="admin-create-user-form" autocomplete="off">
+<div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.25rem;">
+<input id="admin-create-username" name="username" type="text" placeholder="username" style="flex:1 1 120px;padding:0.35rem 0.6rem;border-radius:0.5rem;border:1px solid #1f2937;background-color:#020617;color:#e5e7eb;">
+<input id="admin-create-password" name="password" type="password" placeholder="password" style="flex:1 1 120px;padding:0.35rem 0.6rem;border-radius:0.5rem;border:1px solid #1f2937;background-color:#020617;color:#e5e7eb;">
+<button type="submit" class="button" style="padding-inline:0.9rem;">Create</button>
+</div>
+</form>
+<p id="admin-create-user-status-en" class="lang-en" style="margin-top:0.3rem;font-size:0.85rem;"></p>
+<p id="admin-create-user-status-es" class="lang-es" style="margin-top:0.3rem;font-size:0.85rem;"></p>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="lang-en">Pending drawings</h3>
+<h3 class="lang-es">Dibujos pendientes</h3>
+<p class="lang-en">Moderate drawings submitted from the Mini Paint demo before they appear in the public gallery.</p>
+<p class="lang-es">Modera los dibujos enviados desde el demo de Mini Paint antes de que aparezcan en la galería pública.</p>
+</div>
+<div class="card-body">
+<p id="admin-drawings-status-en" class="lang-en"></p>
+<p id="admin-drawings-status-es" class="lang-es"></p>
+<div class="table-wrapper" style="margin-top:0.75rem;">
+<table class="table" id="admin-drawings-table">
+<thead>
+<tr>
+<th class="lang-en">Preview</th>
+<th class="lang-es">Vista previa</th>
+<th class="lang-en">User</th>
+<th class="lang-es">Usuario</th>
+<th class="lang-en">Submitted</th>
+<th class="lang-es">Enviado</th>
+<th class="lang-en">Actions</th>
+<th class="lang-es">Acciones</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-content">
+<p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
+<p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
+<nav class="footer-nav">
+<a href="index.html#summary" class="lang-en">Home</a>
+<a href="index.html#summary" class="lang-es">Inicio</a>
+<a href="index.html#services" class="lang-en">Services</a>
+<a href="index.html#services" class="lang-es">Servicios</a>
+<a href="about.html" class="lang-en">About me</a>
+<a href="about.html" class="lang-es">Sobre mí</a>
+</nav>
+</div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script>
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+yearSpan.textContent = new Date().getFullYear();
+}
+const languageSelect = document.getElementById("language-select");
+if (languageSelect) {
+const savedLang = localStorage.getItem("preferredLanguage");
+if (savedLang === "es" || savedLang === "en") {
+languageSelect.value = savedLang;
+document.documentElement.setAttribute("data-lang", savedLang);
+document.documentElement.setAttribute("lang", savedLang);
+}
+languageSelect.addEventListener("change", function () {
+var value = languageSelect.value === "es" ? "es" : "en";
+localStorage.setItem("preferredLanguage", value);
+document.documentElement.setAttribute("data-lang", value);
+document.documentElement.setAttribute("lang", value);
+});
+}
+var adminUsersStatusEn = document.getElementById("admin-users-status-en");
+var adminUsersStatusEs = document.getElementById("admin-users-status-es");
+var adminDrawingsStatusEn = document.getElementById("admin-drawings-status-en");
+var adminDrawingsStatusEs = document.getElementById("admin-drawings-status-es");
+var adminUsersTable = document.getElementById("admin-users-table");
+var adminDrawingsTable = document.getElementById("admin-drawings-table");
+var adminCreateUserForm = document.getElementById("admin-create-user-form");
+var adminCreateUserStatusEn = document.getElementById("admin-create-user-status-en");
+var adminCreateUserStatusEs = document.getElementById("admin-create-user-status-es");
+function adminGetLang() {
+var lang = document.documentElement.getAttribute("data-lang");
+if (lang === "es") {
+return "es";
+}
+return "en";
+}
+function adminSetUsersStatus(key) {
+var lang = adminGetLang();
+var en = "";
+var es = "";
+if (key === "loading") {
+en = "Loading demo users...";
+es = "Cargando usuarios de demo...";
+} else if (key === "error") {
+en = "Unable to load demo users. Check backend or permissions.";
+es = "No se pudieron cargar los usuarios de demo. Revisa el backend o permisos.";
+} else if (key === "unauthorized") {
+en = "Not authorized to view this admin surface.";
+es = "No estás autorizado para ver esta superficie de administración.";
+}
+if (adminUsersStatusEn) {
+adminUsersStatusEn.textContent = en;
+}
+if (adminUsersStatusEs) {
+adminUsersStatusEs.textContent = es;
+}
+}
+function adminSetDrawingsStatus(key) {
+var lang = adminGetLang();
+var en = "";
+var es = "";
+if (key === "loading") {
+en = "Loading pending drawings...";
+es = "Cargando dibujos pendientes...";
+} else if (key === "error") {
+en = "Unable to load pending drawings.";
+es = "No se pudieron cargar los dibujos pendientes.";
+} else if (key === "unauthorized") {
+en = "Not authorized to moderate drawings.";
+es = "No estás autorizado para moderar dibujos.";
+}
+if (adminDrawingsStatusEn) {
+adminDrawingsStatusEn.textContent = en;
+}
+if (adminDrawingsStatusEs) {
+adminDrawingsStatusEs.textContent = es;
+}
+}
+function adminSetCreateUserStatus(key) {
+var en = "";
+var es = "";
+if (key === "idle") {
+en = "";
+es = "";
+} else if (key === "creating") {
+en = "Creating demo user...";
+es = "Creando usuario de demo...";
+} else if (key === "success") {
+en = "Demo user created.";
+es = "Usuario de demo creado.";
+} else if (key === "error") {
+en = "Unable to create demo user.";
+es = "No se pudo crear el usuario de demo.";
+}
+if (adminCreateUserStatusEn) {
+adminCreateUserStatusEn.textContent = en;
+}
+if (adminCreateUserStatusEs) {
+adminCreateUserStatusEs.textContent = es;
+}
+}
+function adminParseJsonResponse(response) {
+return response
+.json()
+.then(function (body) {
+return { ok: response.ok, status: response.status, body: body };
+})
+.catch(function () {
+return { ok: response.ok, status: response.status, body: {} };
+});
+}
+function adminRenderUsersTable(users) {
+if (!adminUsersTable) {
+return;
+}
+var tbody = adminUsersTable.querySelector("tbody");
+if (!tbody) {
+return;
+}
+tbody.innerHTML = "";
+if (!users || !users.length) {
+return;
+}
+for (var i = 0; i < users.length; i++) {
+var user = users[i];
+var tr = document.createElement("tr");
+var tdUser = document.createElement("td");
+tdUser.textContent = user.username || "";
+tr.appendChild(tdUser);
+var tdUserEs = document.createElement("td");
+tdUserEs.textContent = user.username || "";
+tr.appendChild(tdUserEs);
+var tdRole = document.createElement("td");
+tdRole.textContent = user.role || "";
+tr.appendChild(tdRole);
+var tdRoleEs = document.createElement("td");
+tdRoleEs.textContent = user.role || "";
+tr.appendChild(tdRoleEs);
+var tdLast = document.createElement("td");
+tdLast.textContent = user.lastActivity || "";
+tr.appendChild(tdLast);
+var tdLastEs = document.createElement("td");
+tdLastEs.textContent = user.lastActivity || "";
+tr.appendChild(tdLastEs);
+var tdActions = document.createElement("td");
+tdActions.colSpan = 2;
+var deleteButton = document.createElement("button");
+deleteButton.textContent = "Delete";
+deleteButton.className = "button";
+deleteButton.style.paddingInline = "0.75rem";
+deleteButton.addEventListener("click", function (id) {
+return function () {
+adminDeleteUser(id);
+};
+}(user.id));
+tdActions.appendChild(deleteButton);
+tr.appendChild(tdActions);
+tbody.appendChild(tr);
+}
+}
+function adminRenderDrawingsTable(drawings) {
+if (!adminDrawingsTable) {
+return;
+}
+var tbody = adminDrawingsTable.querySelector("tbody");
+if (!tbody) {
+return;
+}
+tbody.innerHTML = "";
+if (!drawings || !drawings.length) {
+return;
+}
+for (var i = 0; i < drawings.length; i++) {
+var drawing = drawings[i];
+var tr = document.createElement("tr");
+var tdPreview = document.createElement("td");
+var img = document.createElement("img");
+img.src = drawing.url;
+img.alt = "Drawing";
+img.style.width = "72px";
+img.style.height = "72px";
+img.style.objectFit = "cover";
+img.style.borderRadius = "0.5rem";
+tdPreview.appendChild(img);
+tr.appendChild(tdPreview);
+var tdPreviewEs = document.createElement("td");
+tdPreviewEs.appendChild(img.cloneNode());
+tr.appendChild(tdPreviewEs);
+var tdUser = document.createElement("td");
+tdUser.textContent = drawing.user || "";
+tr.appendChild(tdUser);
+var tdUserEs = document.createElement("td");
+tdUserEs.textContent = drawing.user || "";
+tr.appendChild(tdUserEs);
+var tdTime = document.createElement("td");
+tdTime.textContent = drawing.createdAt || "";
+tr.appendChild(tdTime);
+var tdTimeEs = document.createElement("td");
+tdTimeEs.textContent = drawing.createdAt || "";
+tr.appendChild(tdTimeEs);
+var tdActions = document.createElement("td");
+tdActions.colSpan = 2;
+var approveButton = document.createElement("button");
+approveButton.textContent = "Approve";
+approveButton.className = "button";
+approveButton.style.marginRight = "0.5rem";
+approveButton.style.paddingInline = "0.75rem";
+approveButton.addEventListener("click", function (id) {
+return function () {
+adminModerateDrawing(id, "approve");
+};
+}(drawing.id));
+var denyButton = document.createElement("button");
+denyButton.textContent = "Deny";
+denyButton.className = "button";
+denyButton.style.paddingInline = "0.75rem";
+denyButton.addEventListener("click", function (id) {
+return function () {
+adminModerateDrawing(id, "deny");
+};
+}(drawing.id));
+tdActions.appendChild(approveButton);
+tdActions.appendChild(denyButton);
+tr.appendChild(tdActions);
+tbody.appendChild(tr);
+}
+}
+function adminLoadUsers() {
+  adminSetUsersStatus("loading");
+  authFetch("/api/admin/users", {
+    method: "GET"
+  })
+.then(adminParseJsonResponse)
+.then(function (result) {
+if (result.status === 401 || result.status === 403) {
+adminSetUsersStatus("unauthorized");
+return;
+}
+if (!result.ok) {
+adminSetUsersStatus("error");
+return;
+}
+adminSetUsersStatus("idle");
+if (result.body && Array.isArray(result.body.users)) {
+var users = [];
+for (var i = 0; i < result.body.users.length; i++) {
+var row = result.body.users[i];
+var last = "";
+if (typeof row.created_at === "number") {
+var date = new Date(row.created_at * 1000);
+last = date.toISOString();
+} else if (row.created_at) {
+last = String(row.created_at);
+}
+users.push({
+id: row.id,
+username: row.username,
+role: row.role,
+lastActivity: last
+});
+}
+adminRenderUsersTable(users);
+}
+})
+.catch(function () {
+adminSetUsersStatus("error");
+});
+}
+function adminLoadDrawings() {
+  adminSetDrawingsStatus("loading");
+  authFetch("/api/admin/drawings/pending", {
+    method: "GET"
+  })
+.then(adminParseJsonResponse)
+.then(function (result) {
+if (result.status === 401 || result.status === 403) {
+adminSetDrawingsStatus("unauthorized");
+return;
+}
+if (!result.ok) {
+adminSetDrawingsStatus("error");
+return;
+}
+adminSetDrawingsStatus("idle");
+if (result.body && Array.isArray(result.body.drawings)) {
+var drawings = [];
+for (var i = 0; i < result.body.drawings.length; i++) {
+var row = result.body.drawings[i];
+var url = "";
+try {
+var parsed = JSON.parse(row.data);
+if (parsed && typeof parsed.imageDataUrl === "string") {
+url = parsed.imageDataUrl;
+}
+} catch (error) {
+url = "";
+}
+var created = "";
+if (typeof row.created_at === "number") {
+var d = new Date(row.created_at * 1000);
+created = d.toISOString();
+} else if (row.created_at) {
+created = String(row.created_at);
+}
+drawings.push({
+id: row.id,
+url: url,
+user: row.username,
+createdAt: created
+});
+}
+adminRenderDrawingsTable(drawings);
+}
+})
+.catch(function () {
+adminSetDrawingsStatus("error");
+});
+}
+function adminDeleteUser(id) {
+  authFetch("/api/admin/users/" + encodeURIComponent(String(id)), {
+    method: "DELETE"
+  })
+.then(adminParseJsonResponse)
+.then(function () {
+adminLoadUsers();
+})
+.catch(function () {});
+}
+function adminModerateDrawing(id, action) {
+var pathAction = action === "approve" ? "approve" : "deny";
+  var payloadAction = action === "approve" ? "approve" : "reject";
+  authFetch("/api/admin/drawings/moderate", {
+    method: "POST",
+    headers: {
+"content-type": "application/json"
+},
+body: JSON.stringify({ id: id, action: payloadAction })
+})
+.then(adminParseJsonResponse)
+.then(function () {
+adminLoadDrawings();
+})
+.catch(function () {});
+}
+if (adminCreateUserForm) {
+adminCreateUserForm.addEventListener("submit", function (event) {
+event.preventDefault();
+var usernameInput = document.getElementById("admin-create-username");
+var passwordInput = document.getElementById("admin-create-password");
+if (!usernameInput || !passwordInput) {
+return;
+}
+var username = (usernameInput.value || "").trim();
+var password = passwordInput.value || "";
+if (!username || !password) {
+adminSetCreateUserStatus("error");
+return;
+  }
+  adminSetCreateUserStatus("creating");
+  authFetch("/api/auth/register", {
+    method: "POST",
+    headers: {
+"content-type": "application/json"
+},
+body: JSON.stringify({ username: username, password: password })
+})
+.then(adminParseJsonResponse)
+.then(function (result) {
+if (!result.ok) {
+adminSetCreateUserStatus("error");
+return;
+}
+adminSetCreateUserStatus("success");
+usernameInput.value = "";
+passwordInput.value = "";
+adminLoadUsers();
+})
+.catch(function () {
+adminSetCreateUserStatus("error");
+});
+});
+}
+adminLoadUsers();
+adminLoadDrawings();
+</script>
+</body>
+</html>

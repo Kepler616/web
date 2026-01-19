@@ -41,6 +41,8 @@ display: block;
 <a href="about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
 <a href="services/live-demos.html" class="lang-en nav-demo">Demo</a>
 <a href="services/live-demos.html" class="lang-es nav-demo">Demo</a>
+<a href="login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
+<a href="login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
 <select id="language-select" class="language-select">
 <option value="en" selected>English</option>
 <option value="es">Español</option>
@@ -62,7 +64,69 @@ display: block;
 <div class="container">
 <div id="snake-game-container" style="display:flex;align-items:center;justify-content:center;border:1px solid #1f2937;border-radius:12px;background:#020617;padding:1rem;"></div>
 </div>
-		</section>
+</section>
+<section class="section section-alt">
+<div class="container">
+<div class="grid grid-2">
+<div class="card">
+<div class="card-header">
+<h3 class="lang-en">Demo scoreboard</h3>
+<h3 class="lang-es">Tablero de puntajes demo</h3>
+</div>
+<div class="card-body">
+<p class="lang-en">When you play while logged in to the demo account system, your best Snake score will be stored and reused across sessions.</p>
+<p class="lang-es">Cuando juegas estando conectado al sistema de cuentas de demo, tu mejor puntaje de Snake se almacena y se reutiliza entre sesiones.</p>
+<p id="snake-auth-status" class="lang-en"></p>
+<p id="snake-auth-status-es" class="lang-es"></p>
+<div class="table-wrapper" style="margin-top:0.75rem;">
+<table class="table">
+<thead>
+<tr>
+<th class="lang-en">Metric</th>
+<th class="lang-es">Métrica</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="lang-en">Current demo user</td>
+<td class="lang-es">Usuario de demo actual</td>
+<td id="snake-user-cell">–</td>
+</tr>
+<tr>
+<td class="lang-en">Best score (demo backend)</td>
+<td class="lang-es">Mejor puntaje (backend demo)</td>
+<td id="snake-best-score-cell">–</td>
+</tr>
+<tr>
+<td class="lang-en">Last game score (this session)</td>
+<td class="lang-es">Último puntaje (esta sesión)</td>
+<td id="snake-last-score-cell">–</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="lang-en">How the scoreboard works</h3>
+<h3 class="lang-es">Cómo funciona el tablero</h3>
+</div>
+<div class="card-body">
+<ul class="simple-list">
+<li class="lang-en">The game still keeps a local high score in your browser so it works offline.</li>
+<li class="lang-es">El juego sigue manteniendo un puntaje alto local en tu navegador para funcionar sin conexión.</li>
+<li class="lang-en">When you are logged in to the account demo, the game also sends your best score to a Cloudflare Worker backend.</li>
+<li class="lang-es">Cuando inicias sesión en el demo de cuentas, el juego también envía tu mejor puntaje a un backend en Cloudflare Workers.</li>
+<li class="lang-en">Each new game over event compares your latest score and updates the backend if you set a new personal best.</li>
+<li class="lang-es">Cada fin de partida compara tu puntaje más reciente y actualiza el backend si superas tu mejor marca personal.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
 		<section class="section section-alt">
 <div class="container">
 <h2 class="lang-en">Project Overview</h2>
@@ -127,6 +191,7 @@ display: block;
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.0/dist/phaser.min.js"></script>
 <script src="assets/games/snake/snake.js"></script>
+<script src="assets/js/auth.js"></script>
 <script>
 const yearSpan = document.getElementById("year");
 if (yearSpan) {
@@ -147,6 +212,152 @@ const languageSelect = document.getElementById("language-select");
         document.documentElement.setAttribute("lang", value);
       });
     }
+
+var snakeAuthStatusEn = document.getElementById("snake-auth-status");
+var snakeAuthStatusEs = document.getElementById("snake-auth-status-es");
+var snakeUserCell = document.getElementById("snake-user-cell");
+var snakeBestScoreCell = document.getElementById("snake-best-score-cell");
+var snakeLastScoreCell = document.getElementById("snake-last-score-cell");
+var snakeCurrentUser = null;
+var snakeBestScore = null;
+function snakeGetCurrentLang() {
+var lang = document.documentElement.getAttribute("data-lang");
+if (lang === "es") {
+return "es";
+}
+return "en";
+}
+function snakeSetAuthStatus(key) {
+var lang = snakeGetCurrentLang();
+if (lang === "es") {
+if (snakeAuthStatusEs) {
+if (key === "loggedOut") {
+snakeAuthStatusEs.textContent = "Inicia sesión en el demo de cuentas para guardar tus puntajes de Snake.";
+} else if (key === "loggedIn") {
+snakeAuthStatusEs.textContent = "Sesión de demo activa. Tus mejores puntajes se guardarán en el backend.";
+} else if (key === "error") {
+snakeAuthStatusEs.textContent = "No fue posible conectar con el backend de demo.";
+}
+}
+if (snakeAuthStatusEn) {
+snakeAuthStatusEn.textContent = "";
+}
+} else {
+if (snakeAuthStatusEn) {
+if (key === "loggedOut") {
+snakeAuthStatusEn.textContent = "Log in to the account demo to store your Snake scores.";
+} else if (key === "loggedIn") {
+snakeAuthStatusEn.textContent = "Demo session active. Your best scores will be stored in the backend.";
+} else if (key === "error") {
+snakeAuthStatusEn.textContent = "Unable to connect to the demo backend.";
+}
+}
+if (snakeAuthStatusEs) {
+snakeAuthStatusEs.textContent = "";
+}
+}
+}
+function snakeUpdateUserCell() {
+if (!snakeUserCell) {
+return;
+}
+snakeUserCell.textContent = snakeCurrentUser ? snakeCurrentUser : "–";
+}
+function snakeUpdateBestScoreCell() {
+if (!snakeBestScoreCell) {
+return;
+}
+if (typeof snakeBestScore === "number") {
+snakeBestScoreCell.textContent = String(snakeBestScore);
+} else {
+snakeBestScoreCell.textContent = "–";
+}
+}
+function snakeUpdateLastScoreCell(score) {
+if (!snakeLastScoreCell) {
+return;
+}
+if (typeof score === "number") {
+snakeLastScoreCell.textContent = String(score);
+} else {
+snakeLastScoreCell.textContent = "–";
+}
+}
+function snakeParseJsonResponse(response) {
+  return response
+    .json()
+    .then(function (body) {
+      return { ok: response.ok, status: response.status, body: body };
+    })
+    .catch(function () {
+      return { ok: response.ok, status: response.status, body: {} };
+    });
+}
+
+// Event listeners for auth
+window.addEventListener("auth:login", function(e) {
+  var user = e.detail;
+  snakeCurrentUser = user.username;
+  snakeSetAuthStatus("loggedIn");
+  snakeUpdateUserCell();
+  snakeFetchBestScore();
+});
+window.addEventListener("auth:logout", function() {
+  snakeCurrentUser = null;
+  snakeSetAuthStatus("loggedOut");
+  snakeUpdateUserCell();
+  snakeBestScore = null;
+  snakeUpdateBestScoreCell();
+});
+
+function snakeFetchBestScore() {
+  authFetch("/api/snake/score", {
+    method: "POST",
+    headers: {
+"content-type": "application/json"
+},
+body: JSON.stringify({ score: 0 })
+})
+.then(snakeParseJsonResponse)
+.then(function (result) {
+if (result.ok && result.body && typeof result.body.best === "number") {
+snakeBestScore = result.body.best;
+snakeUpdateBestScoreCell();
+}
+})
+.catch(function () {});
+}
+function snakeSubmitScore(score) {
+snakeUpdateLastScoreCell(score);
+if (!snakeCurrentUser) {
+return;
+}
+var payload = { score: score };
+  authFetch("/api/snake/score", {
+    method: "POST",
+    headers: {
+"content-type": "application/json"
+},
+body: JSON.stringify(payload)
+})
+.then(snakeParseJsonResponse)
+.then(function (result) {
+if (result.ok && result.body && typeof result.body.best === "number") {
+snakeBestScore = result.body.best;
+} else if (typeof snakeBestScore === "number") {
+if (score > snakeBestScore) {
+snakeBestScore = score;
+}
+} else {
+snakeBestScore = score;
+}
+snakeUpdateBestScoreCell();
+})
+.catch(function () {});
+}
+window.onSnakeGameOver = function (finalScore) {
+  snakeSubmitScore(finalScore);
+};
 </script>
 </body>
 </html>

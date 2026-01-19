@@ -134,6 +134,28 @@ color: #bfdbfe;
   opacity: 1;
 }
 
+.nav-demo.logged-in .demo-badge {
+  display: none;
+}
+
+.auth-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background-color: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.auth-logout-btn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
 .nav-item {
 position: relative;
 }
@@ -570,6 +592,92 @@ padding-left: 1rem;
 .card-body {
   font-size: 0.9rem;
   color: #d1d5db;
+}
+
+.auth-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.auth-card {
+  flex: 1 1 260px;
+  border-radius: 0.75rem;
+  border: 1px solid #1f2937;
+  padding: 1.25rem;
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), rgba(15, 23, 42, 0.9));
+}
+
+.auth-card header {
+  margin-bottom: 0.75rem;
+}
+
+.auth-card p {
+  font-size: 0.9rem;
+  color: #d1d5db;
+  margin-bottom: 0.75rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.auth-show-password-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+.auth-field label {
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+.auth-field input {
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #1f2937;
+  background-color: #020617;
+  color: #e5e7eb;
+}
+
+.auth-field input:focus {
+  outline: 2px solid #60a5fa;
+  outline-offset: 1px;
+}
+
+.auth-button {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+.auth-status {
+  margin-top: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #1f2937;
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), rgba(15, 23, 42, 0.9));
+}
+
+.status-message {
+  font-size: 0.9rem;
+  color: #e5e7eb;
+  margin-bottom: 0.25rem;
+}
+
+.status-session {
+  font-size: 0.85rem;
+  color: #9ca3af;
 }
 
 .table-wrapper {

@@ -43,6 +43,8 @@ tailwind.config = {
 <a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
 <a href="../services/live-demos.html" class="lang-en nav-demo">Demo</a>
 <a href="../services/live-demos.html" class="lang-es nav-demo">Demo</a>
+<a href="../login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
+<a href="../login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
 <select id="language-select" class="language-select">
 <option value="en" selected>English</option>
 <option value="es">Español</option>
@@ -60,6 +62,35 @@ tailwind.config = {
 <p class="lang-es">Mini paint interactivo en canvas construido en JavaScript puro para demostrar múltiples motores de brocha sobre la API de Canvas de HTML5.</p>
 <p class="lang-en">This page focuses on brush behavior, input interpretation, and rendering techniques instead of UI frameworks.</p>
 <p class="lang-es">Esta página se enfoca en comportamiento de brochas, interpretación de input y técnicas de renderizado en lugar de frameworks de UI.</p>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div class="tw-bg-slate-950 tw-border tw-border-slate-800 tw-rounded-xl tw-p-3 tw-flex tw-flex-col tw-gap-3">
+<h3 class="tw-text-slate-100 tw-text-sm tw-font-semibold">
+<span class="lang-en">Latest drawings (demo)</span>
+<span class="lang-es">Últimos dibujos (demo)</span>
+</h3>
+<p class="tw-text-[11px] tw-text-slate-300 lang-en">
+When you are logged in to the account demo, you can publish a snapshot of your canvas to a moderated gallery. Drawings are reviewed on the backend and only approved pieces younger than a few days are displayed here.
+</p>
+<p class="tw-text-[11px] tw-text-slate-300 lang-es">
+Cuando inicias sesión en el demo de cuentas, puedes publicar una captura de tu canvas en una galería moderada. Los dibujos se revisan en el backend y solo se muestran aquí las piezas aprobadas y recientes.
+</p>
+<div class="tw-flex tw-items-center tw-justify-between tw-gap-2 tw-mt-1 tw-mb-2">
+<p id="mp-auth-status-en" class="tw-text-[11px] tw-text-slate-300 lang-en"></p>
+<p id="mp-auth-status-es" class="tw-text-[11px] tw-text-slate-300 lang-es"></p>
+</div>
+<div class="tw-flex tw-items-center tw-gap-2 tw-mb-2">
+<button id="mp-publish" type="button" class="tw-text-xs tw-font-medium tw-rounded-full tw-px-3 tw-py-1 tw-bg-emerald-600 tw-text-slate-50 tw-border tw-border-emerald-400 hover:tw-bg-emerald-500">
+<span class="lang-en">Publish current drawing (demo)</span>
+<span class="lang-es">Publicar dibujo actual (demo)</span>
+</button>
+<span id="mp-publish-status-en" class="tw-text-[11px] tw-text-slate-300 lang-en"></span>
+<span id="mp-publish-status-es" class="tw-text-[11px] tw-text-slate-300 lang-es"></span>
+</div>
+<div id="mp-gallery" class="tw-grid tw-grid-cols-2 tw-gap-2 tw-sm:tw-grid-cols-3 tw-mt-1"></div>
+</div>
 </div>
 </section>
 <section class="section">
@@ -271,6 +302,7 @@ tailwind.config = {
 </nav>
 </div>
 </footer>
+<script src="../assets/js/auth.js"></script>
 <script>
 const yearSpan = document.getElementById("year");
 if (yearSpan) {
@@ -321,8 +353,158 @@ let texturePattern = null;
 let dottedAccumulator = 0;
 let historyStack = [];
 let redoStack = [];
-const MAX_HISTORY_ENTRIES = 50;
-let canvasBackgroundColor = null;
+  const MAX_HISTORY_ENTRIES = 50;
+  let canvasBackgroundColor = null;
+
+  const mpAuthStatusEn = document.getElementById("mp-auth-status-en");
+const mpAuthStatusEs = document.getElementById("mp-auth-status-es");
+const mpPublishButton = document.getElementById("mp-publish");
+const mpPublishStatusEn = document.getElementById("mp-publish-status-en");
+const mpPublishStatusEs = document.getElementById("mp-publish-status-es");
+const mpGallery = document.getElementById("mp-gallery");
+let mpCurrentUser = null;
+function mpGetCurrentLang() {
+const lang = document.documentElement.getAttribute("data-lang");
+if (lang === "es") {
+return "es";
+}
+return "en";
+}
+function mpSetAuthStatus(key) {
+const lang = mpGetCurrentLang();
+if (lang === "es") {
+if (mpAuthStatusEs) {
+if (key === "loggedOut") {
+mpAuthStatusEs.textContent = "Inicia sesión en el demo de cuentas para publicar dibujos.";
+} else if (key === "loggedIn") {
+mpAuthStatusEs.textContent = "Sesión de demo activa. Puedes publicar dibujos para revisión.";
+} else if (key === "error") {
+mpAuthStatusEs.textContent = "No fue posible conectar con el backend de demo.";
+}
+}
+if (mpAuthStatusEn) {
+mpAuthStatusEn.textContent = "";
+}
+} else {
+if (mpAuthStatusEn) {
+if (key === "loggedOut") {
+mpAuthStatusEn.textContent = "Log in to the account demo to publish drawings.";
+} else if (key === "loggedIn") {
+mpAuthStatusEn.textContent = "Demo session active. You can publish drawings for review.";
+} else if (key === "error") {
+mpAuthStatusEn.textContent = "Unable to connect to the demo backend.";
+}
+}
+if (mpAuthStatusEs) {
+mpAuthStatusEs.textContent = "";
+}
+}
+}
+function mpSetPublishStatus(key) {
+const lang = mpGetCurrentLang();
+let en = "";
+let es = "";
+if (key === "idle") {
+en = "";
+es = "";
+} else if (key === "publishing") {
+en = "Publishing drawing to the moderated gallery...";
+es = "Publicando dibujo en la galería moderada...";
+} else if (key === "success") {
+en = "Drawing submitted. It will appear here once approved.";
+es = "Dibujo enviado. Aparecerá aquí cuando sea aprobado.";
+} else if (key === "error") {
+en = "There was a problem publishing the drawing.";
+es = "Hubo un problema al publicar el dibujo.";
+} else if (key === "noUser") {
+en = "Log in to publish your drawing.";
+es = "Inicia sesión para publicar tu dibujo.";
+}
+if (mpPublishStatusEn) {
+mpPublishStatusEn.textContent = en;
+}
+if (mpPublishStatusEs) {
+mpPublishStatusEs.textContent = es;
+}
+}
+function mpParseJsonResponse(response) {
+  return response
+    .json()
+    .then(function (body) {
+      return { ok: response.ok, status: response.status, body: body };
+    })
+    .catch(function () {
+      return { ok: response.ok, status: response.status, body: {} };
+    });
+}
+
+// Event listeners
+window.addEventListener("auth:login", function(e) {
+  var user = e.detail;
+  mpCurrentUser = user.username;
+  mpSetAuthStatus("loggedIn");
+});
+window.addEventListener("auth:logout", function() {
+  mpCurrentUser = null;
+  mpSetAuthStatus("loggedOut");
+});
+
+function mpRenderGalleryItems(items) {
+if (!mpGallery) {
+return;
+}
+mpGallery.innerHTML = "";
+if (!items || !items.length) {
+return;
+}
+for (var i = 0; i < items.length; i++) {
+var item = items[i];
+var wrapper = document.createElement("div");
+wrapper.className = "tw-flex tw-flex-col tw-gap-1";
+var img = document.createElement("img");
+img.src = item.url;
+img.alt = "Mini paint drawing";
+img.className = "tw-w-full tw-rounded-md tw-border tw-border-slate-700 tw-bg-slate-900 tw-object-cover tw-aspect-square";
+wrapper.appendChild(img);
+var meta = document.createElement("div");
+meta.className = "tw-text-[10px] tw-text-slate-300";
+var author = item.author || "";
+if (author) {
+meta.textContent = "@" + author;
+}
+wrapper.appendChild(meta);
+mpGallery.appendChild(wrapper);
+}
+}
+function mpFetchGallery() {
+  authFetch("/api/paint/gallery", {
+    method: "GET"
+  })
+.then(mpParseJsonResponse)
+.then(function (result) {
+if (result.ok && result.body && Array.isArray(result.body.drawings)) {
+var items = [];
+for (var i = 0; i < result.body.drawings.length; i++) {
+var row = result.body.drawings[i];
+var url = "";
+try {
+var parsed = JSON.parse(row.data);
+if (parsed && typeof parsed.imageDataUrl === "string") {
+url = parsed.imageDataUrl;
+}
+} catch (error) {
+url = "";
+}
+items.push({
+url: url,
+author: row.username || ""
+});
+}
+mpRenderGalleryItems(items);
+}
+})
+.catch(function () {});
+}
 function hexToRgbArray(hex) {
 let value = hex.replace("#", "");
 if (value.length === 3) {
@@ -366,6 +548,7 @@ ctx.lineJoin = "round";
 setCanvasSize();
 updateUndoRedoButtons();
 window.addEventListener("resize", setCanvasSize);
+mpFetchGallery();
 function pushHistory() {
 try {
 const image = ctx.getImageData(0, 0, mpCanvas.width, mpCanvas.height);
@@ -886,6 +1069,42 @@ downloadMenu.classList.add("tw-hidden");
 }
 });
 }
+  if (mpPublishButton) {
+    mpPublishButton.addEventListener("click", function () {
+      if (!mpCurrentUser) {
+        mpSetPublishStatus("noUser");
+        return;
+      }
+      const exportCanvas = document.createElement("canvas");
+      exportCanvas.width = mpCanvas.width;
+      exportCanvas.height = mpCanvas.height;
+      const exportCtx = exportCanvas.getContext("2d");
+      exportCtx.fillStyle = "#020617";
+      exportCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+      exportCtx.drawImage(mpCanvas, 0, 0, exportCanvas.width, exportCanvas.height);
+      const dataUrl = exportCanvas.toDataURL("image/png");
+      mpSetPublishStatus("publishing");
+      authFetch("/api/paint/publish", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+body: JSON.stringify({ data: { imageDataUrl: dataUrl } })
+      })
+        .then(mpParseJsonResponse)
+        .then(function (result) {
+          if (result.ok) {
+            mpSetPublishStatus("success");
+            mpFetchGallery();
+          } else {
+            mpSetPublishStatus("error");
+          }
+        })
+        .catch(function () {
+          mpSetPublishStatus("error");
+        });
+    });
+  }
 window.addEventListener("keydown", function (event) {
 const key = event.key;
 const ctrlOrMeta = event.ctrlKey || event.metaKey;

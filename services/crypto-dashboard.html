@@ -34,6 +34,8 @@
 <a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
 <a href="../services/live-demos.html" class="lang-en nav-demo">Demo</a>
 <a href="../services/live-demos.html" class="lang-es nav-demo">Demo</a>
+<a href="../login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
+<a href="../login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
 <select id="language-select" class="language-select">
 <option value="en" selected>English</option>
 <option value="es">Español</option>
@@ -493,5 +495,6 @@ lastUpdated ? "Last update: " + lastUpdated.toLocaleTimeString() : "Waiting for 
 }
 ReactDOM.createRoot(document.getElementById("crypto-dashboard-root")).render(React.createElement(Dashboard));
 </script>
+<script src="../assets/js/auth.js"></script>
 </body>
 </html>

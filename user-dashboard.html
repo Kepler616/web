@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard | Kendall Mendoza</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="assets/icons/favicon_io/site.webmanifest">
+<link rel="icon" href="assets/icons/favicon_io/favicon.ico">
+</head>
+<body>
+<header class="site-header">
+<div class="container header-content">
+<div class="header-main">
+<img src="assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
+<div>
+<h1 class="name">KENDALL MENDOZA</h1>
+<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
+<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
+<p class="location lang-en">Remote | Colombia</p>
+<p class="location lang-es">Remoto | Colombia</p>
+</div>
+</div>
+<div class="header-bottom">
+<nav class="main-nav">
+<a href="index.html#summary" class="lang-en">Home</a>
+<a href="index.html#summary" class="lang-es">Inicio</a>
+<div class="nav-item services-dropdown">
+<a href="index.html#services" class="lang-en">Services</a>
+<a href="index.html#services" class="lang-es">Servicios</a>
+<div class="services-dropdown-menu">
+<ul>
+<li>
+<a href="services/service-software-web.html" class="lang-en">Software & Web Development</a>
+<a href="services/service-software-web.html" class="lang-es">Desarrollo de Software y Web</a>
+</li>
+<li>
+<a href="services/service-seo.html" class="lang-en">SEO & Technical Content Systems</a>
+<a href="services/service-seo.html" class="lang-es">Sistemas de SEO y Contenido Técnico</a>
+</li>
+<li>
+<a href="services/service-web-architecture.html" class="lang-en">Web Content Architecture & CMS Management</a>
+<a href="services/service-web-architecture.html" class="lang-es">Arquitectura Web y Gestión de CMS</a>
+</li>
+<li>
+<a href="services/service-analytics.html" class="lang-en">Analytics, Data & Performance Optimization</a>
+<a href="services/service-analytics.html" class="lang-es">Analítica, Datos y Optimización de Rendimiento</a>
+</li>
+<li>
+<a href="services/service-video-editing.html" class="lang-en">Video Editing</a>
+<a href="services/service-video-editing.html" class="lang-es">Edición de video</a>
+</li>
+<li>
+<a href="services/service-image-editing.html" class="lang-en">Image Editing</a>
+<a href="services/service-image-editing.html" class="lang-es">Edición de imágenes</a>
+</li>
+<li>
+<a href="services/service-social-management.html" class="lang-en">Social Media Management</a>
+<a href="services/service-social-management.html" class="lang-es">Gestión de redes sociales</a>
+</li>
+<li>
+<a href="services/service-social-audit.html" class="lang-en">Social Media Audit</a>
+<a href="services/service-social-audit.html" class="lang-es">Auditoría de redes sociales</a>
+</li>
+</ul>
+</div>
+</div>
+<a href="index.html#contact" class="lang-en">Contact</a>
+<a href="index.html#contact" class="lang-es">Contacto</a>
+<a href="about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
+<a href="about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
+<a href="login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
+<select id="language-select" class="language-select">
+<option value="en" selected>English</option>
+<option value="es">Español</option>
+</select>
+</nav>
+
+</div>
+</div>
+</header>
+<main>
+<section class="section">
+<div class="container">
+<h2 class="lang-en">User Dashboard</h2>
+<h2 class="lang-es">Panel de Usuario</h2>
+<p class="lang-en">Manage your demo account settings.</p>
+<p class="lang-es">Gestiona la configuración de tu cuenta de demo.</p>
+</div>
+</section>
+<section class="section section-alt">
+<div class="container">
+<div class="auth-layout">
+<article class="auth-card">
+<header>
+<h3 class="lang-en">Account Info</h3>
+<h3 class="lang-es">Información de Cuenta</h3>
+</header>
+<div class="auth-field">
+<label class="lang-en">Username</label>
+<label class="lang-es">Usuario</label>
+<input type="text" id="dashboard-username" disabled value="...">
+</div>
+<div style="margin-top: 1rem;">
+<button id="logout-btn" class="button auth-button" style="background-color: #e74c3c;">
+<span class="lang-en">Logout</span>
+<span class="lang-es">Cerrar sesión</span>
+</button>
+</div>
+</article>
+
+<article class="auth-card">
+<header>
+<h3 class="lang-en">Change Password</h3>
+<h3 class="lang-es">Cambiar Contraseña</h3>
+</header>
+<form id="change-password-form" autocomplete="off">
+<div class="auth-field">
+<label for="new-password" class="lang-en">New Password</label>
+<label for="new-password" class="lang-es">Nueva Contraseña</label>
+<input id="new-password" name="newPassword" type="password" autocomplete="new-password" required>
+</div>
+<div class="auth-field">
+<label for="confirm-new-password" class="lang-en">Confirm New Password</label>
+<label for="confirm-new-password" class="lang-es">Confirmar Nueva Contraseña</label>
+<input id="confirm-new-password" name="confirmNewPassword" type="password" autocomplete="new-password" required>
+</div>
+<div class="auth-field" style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;">
+<input id="show-password" type="checkbox">
+<span class="lang-en">Show password</span>
+<span class="lang-es">Mostrar contraseña</span>
+</div>
+<button type="submit" class="button auth-button lang-en">Update Password</button>
+<button type="submit" class="button auth-button lang-es">Actualizar Contraseña</button>
+</form>
+</article>
+</div>
+<div id="auth-status" class="auth-status">
+<p id="auth-status-message" class="status-message"></p>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-content">
+<p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
+<p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
+<nav class="footer-nav">
+<a href="index.html#summary" class="lang-en">Home</a>
+<a href="index.html#summary" class="lang-es">Inicio</a>
+<a href="index.html#services" class="lang-en">Services</a>
+<a href="index.html#services" class="lang-es">Servicios</a>
+<a href="about.html" class="lang-en">About me</a>
+<a href="about.html" class="lang-es">Sobre mí</a>
+</nav>
+</div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script>
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+yearSpan.textContent = new Date().getFullYear();
+}
+const languageSelect = document.getElementById("language-select");
+if (languageSelect) {
+var savedLang = localStorage.getItem("preferredLanguage");
+if (savedLang === "es" || savedLang === "en") {
+languageSelect.value = savedLang;
+document.documentElement.setAttribute("data-lang", savedLang);
+document.documentElement.setAttribute("lang", savedLang);
+}
+languageSelect.addEventListener("change", function () {
+var value = languageSelect.value === "es" ? "es" : "en";
+localStorage.setItem("preferredLanguage", value);
+document.documentElement.setAttribute("data-lang", value);
+document.documentElement.setAttribute("lang", value);
+});
+}
+
+var changePasswordForm = document.getElementById("change-password-form");
+var logoutBtn = document.getElementById("logout-btn");
+var statusMessage = document.getElementById("auth-status-message");
+var dashboardUsername = document.getElementById("dashboard-username");
+var newPasswordInput = document.getElementById("new-password");
+var confirmNewPasswordInput = document.getElementById("confirm-new-password");
+var showPasswordCheckbox = document.getElementById("show-password");
+
+var messages = {
+fieldsRequired: {
+en: "Please enter all fields.",
+es: "Por favor completa todos los campos."
+},
+passwordMismatch: {
+en: "Passwords do not match.",
+es: "Las contraseñas no coinciden."
+},
+updating: {
+en: "Updating password...",
+es: "Actualizando contraseña..."
+},
+updateSuccess: {
+en: "Password updated successfully.",
+es: "Contraseña actualizada exitosamente."
+},
+updateError: {
+en: "Failed to update password.",
+es: "Error al actualizar la contraseña."
+},
+networkError: {
+en: "Network error.",
+es: "Error de red."
+}
+};
+
+function getCurrentLang() {
+var lang = document.documentElement.getAttribute("data-lang");
+if (lang === "es") {
+return "es";
+}
+return "en";
+}
+
+function translate(key) {
+var lang = getCurrentLang();
+var group = messages[key];
+if (group && group[lang]) {
+return group[lang];
+}
+if (group && group.en) {
+return group.en;
+}
+return "";
+}
+
+function setStatus(text) {
+if (statusMessage) {
+statusMessage.textContent = text;
+}
+}
+
+function setStatusKey(key) {
+setStatus(translate(key));
+}
+
+function parseJsonResponse(response) {
+return response
+.json()
+.then(function (body) {
+return { ok: response.ok, status: response.status, body: body };
+})
+.catch(function () {
+return { ok: response.ok, status: response.status, body: {} };
+});
+}
+
+// Populate username from session
+window.addEventListener("auth:login", function(e) {
+var user = e.detail;
+if (dashboardUsername) {
+dashboardUsername.value = user.username;
+}
+});
+
+// If not logged in, redirect to login (simple check, relies on auth.js firing auth:logout or auth:login)
+// However, auth.js fires events asynchronously. We can check getAuthToken() synchronously.
+if (!window.getAuthToken()) {
+window.location.href = "login.html";
+}
+
+// Change Password Handler
+if (changePasswordForm) {
+changePasswordForm.addEventListener("submit", function(event) {
+event.preventDefault();
+var formData = new FormData(changePasswordForm);
+var newPassword = (formData.get("newPassword") || "").toString();
+var confirmNewPassword = (formData.get("confirmNewPassword") || "").toString();
+
+if (!newPassword || !confirmNewPassword) {
+setStatusKey("fieldsRequired");
+return;
+}
+if (newPassword !== confirmNewPassword) {
+setStatusKey("passwordMismatch");
+return;
+}
+
+setStatusKey("updating");
+
+authFetch("/api/auth/change-password", {
+method: "POST",
+headers: {
+"content-type": "application/json"
+},
+body: JSON.stringify({ password: newPassword })
+})
+.then(parseJsonResponse)
+.then(function(result) {
+if (result.ok) {
+setStatusKey("updateSuccess");
+changePasswordForm.reset();
+} else {
+var message = translate("updateError");
+if (result.body && result.body.error) {
+message = result.body.error.toString();
+}
+setStatus(message);
+}
+})
+.catch(function() {
+setStatusKey("networkError");
+});
+});
+}
+
+// Show/Hide Password
+if (showPasswordCheckbox && newPasswordInput && confirmNewPasswordInput) {
+showPasswordCheckbox.addEventListener("change", function () {
+var type = showPasswordCheckbox.checked ? "text" : "password";
+newPasswordInput.type = type;
+confirmNewPasswordInput.type = type;
+});
+}
+
+// Logout Handler
+if (logoutBtn) {
+logoutBtn.addEventListener("click", function() {
+window.setAuthToken(""); // Clear token
+window.location.href = "login.html"; // Redirect
+});
+}
+</script>
+</body>
+</html>

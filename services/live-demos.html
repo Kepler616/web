@@ -72,16 +72,14 @@
 <a href="../index.html#contact" class="lang-es">Contacto</a>
 <a href="../about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
 <a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="../login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
+<a href="../login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
 <select id="language-select" class="language-select">
 <option value="en" selected>English</option>
 <option value="es">Español</option>
 </select>
 </nav>
-<div class="contact">
-<a href="tel:+573166573216">+57 316 657 3216</a>
-<a href="tel:+573027439538">+57 302 743 9538</a>
-<a href="mailto:kendall.mendoza98@gmail.com">kendall.mendoza98@gmail.com</a>
-</div>
+
 </div>
 </div>
 </header>
@@ -136,6 +134,18 @@
 <a href="mini-paint.html" class="button lang-es">Launch</a>
 </div>
 </article>
+<article class="service" style="display:flex;flex-direction:row;align-items:flex-start;gap:1rem;margin-top:2rem;">
+<div style="flex:1;">
+<h3 class="lang-en">Account Creation & Auth Demo <a href="../login.html" class="demo-badge">Demo</a></h3>
+<h3 class="lang-es">Demo de creación de cuentas y login <a href="../login.html" class="demo-badge">Demo</a></h3>
+<p class="lang-en">Small authentication layer used to attach Snake scores and Mini Paint drawings to demo accounts, powered by a Cloudflare Worker backend.</p>
+<p class="lang-es">Capa pequeña de autenticación usada para asociar puntajes de Snake y dibujos de Mini Paint a cuentas de demostración, respaldada por un backend en Cloudflare Workers.</p>
+</div>
+<div class="service-contact">
+<a href="../login.html" class="button lang-en">Launch</a>
+<a href="../login.html" class="button lang-es">Launch</a>
+</div>
+</article>
 </div>
 </section>
 </main>
@@ -174,5 +184,6 @@ const languageSelect = document.getElementById("language-select");
       });
     }
 </script>
+<script src="../assets/js/auth.js"></script>
 </body>
 </html>

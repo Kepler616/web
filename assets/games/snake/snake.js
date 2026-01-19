@@ -351,6 +351,11 @@
         this.highScore +
         "\nPress R to restart";
       this.showOverlay(message);
+      if (window && typeof window.onSnakeGameOver === "function") {
+        try {
+          window.onSnakeGameOver(this.score);
+        } catch (e) {}
+      }
     }
   }
 
