@@ -96,13 +96,20 @@ if (yearSpan) {
 yearSpan.textContent = new Date().getFullYear();
 }
 const languageSelect = document.getElementById("language-select");
-if (languageSelect) {
-languageSelect.addEventListener("change", function () {
-var value = languageSelect.value === "es" ? "es" : "en";
-document.documentElement.setAttribute("data-lang", value);
-document.documentElement.setAttribute("lang", value);
-});
-}
+    if (languageSelect) {
+      const savedLang = localStorage.getItem("preferredLanguage");
+      if (savedLang === "es" || savedLang === "en") {
+        languageSelect.value = savedLang;
+        document.documentElement.setAttribute("data-lang", savedLang);
+        document.documentElement.setAttribute("lang", savedLang);
+      }
+      languageSelect.addEventListener("change", function () {
+        var value = languageSelect.value === "es" ? "es" : "en";
+        localStorage.setItem("preferredLanguage", value);
+        document.documentElement.setAttribute("data-lang", value);
+        document.documentElement.setAttribute("lang", value);
+      });
+    }
 </script>
 </body>
 </html>

@@ -100,6 +100,21 @@
 </ul>
 </div>
 </section>
+<section id="contact" class="section">
+<div class="container">
+<h2 class="lang-en">Contact</h2>
+<h2 class="lang-es">Contacto</h2>
+<p class="lang-en">If you need help designing or shipping real-time dashboards, API integrations or data-driven frontend systems similar to this crypto demo, feel free to reach out.</p>
+<p class="lang-es">Si necesitas ayuda diseñando o lanzando dashboards en tiempo real, integraciones con APIs o sistemas frontend orientados a datos similares a este demo cripto, no dudes en contactarme.</p>
+<ul class="simple-list">
+<li>Email: <a href="mailto:kendall.mendoza98@gmail.com">kendall.mendoza98@gmail.com</a></li>
+<li class="lang-en">Phone: +57 316 657 3216 | +57 302 743 9538</li>
+<li class="lang-es">Teléfono: +57 316 657 3216 | +57 302 743 9538</li>
+</ul>
+<a href="../index.html#contact" class="button lang-en">More ways to contact me</a>
+<a href="../index.html#contact" class="button lang-es">Más formas de contacto</a>
+</div>
+</section>
 </main>
 <footer class="site-footer">
 <div class="container footer-content">
@@ -124,13 +139,20 @@ if (yearSpan) {
 yearSpan.textContent = new Date().getFullYear();
 }
 const languageSelect = document.getElementById("language-select");
-if (languageSelect) {
-languageSelect.addEventListener("change", function () {
-var value = languageSelect.value === "es" ? "es" : "en";
-document.documentElement.setAttribute("data-lang", value);
-document.documentElement.setAttribute("lang", value);
-});
-}
+    if (languageSelect) {
+      const savedLang = localStorage.getItem("preferredLanguage");
+      if (savedLang === "es" || savedLang === "en") {
+        languageSelect.value = savedLang;
+        document.documentElement.setAttribute("data-lang", savedLang);
+        document.documentElement.setAttribute("lang", savedLang);
+      }
+      languageSelect.addEventListener("change", function () {
+        var value = languageSelect.value === "es" ? "es" : "en";
+        localStorage.setItem("preferredLanguage", value);
+        document.documentElement.setAttribute("data-lang", value);
+        document.documentElement.setAttribute("lang", value);
+      });
+    }
 </script>
 <script type="text/babel">
 const API_BASE_URL = "https://crypto-rt-dashboard.kenport.workers.dev";

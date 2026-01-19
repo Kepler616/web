@@ -180,6 +180,14 @@ white-space: nowrap;
 color: #e5e7eb;
 }
 
+.download-menu-item {
+  background-color: #1f2937;
+}
+
+.download-menu-item:hover {
+  background: linear-gradient(to right, #1d4ed8, #0ea5e9);
+}
+
 .services-dropdown-menu a:hover {
 color: #bfdbfe;
 }

@@ -62,8 +62,8 @@ display: block;
 <div class="container">
 <div id="snake-game-container" style="display:flex;align-items:center;justify-content:center;border:1px solid #1f2937;border-radius:12px;background:#020617;padding:1rem;"></div>
 </div>
-</section>
-<section class="section section-alt">
+		</section>
+		<section class="section section-alt">
 <div class="container">
 <h2 class="lang-en">Project Overview</h2>
 <h2 class="lang-es">Project Overview</h2>
@@ -94,9 +94,24 @@ display: block;
 <li class="lang-es"><strong>Persistir el puntaje más alto de forma sencilla</strong><br>El juego necesita una forma simple de recordar la mejor partida. La solución fue usar almacenamiento del navegador con validaciones básicas para que el juego siga funcionando incluso donde el storage es limitado.</li>
 </ul>
 </div>
-</section>
-</main>
-<footer class="site-footer">
+		</section>
+		<section id="contact" class="section">
+			<div class="container">
+				<h2 class="lang-en">Contact</h2>
+				<h2 class="lang-es">Contacto</h2>
+				<p class="lang-en">If you want to explore game-like interactions, canvas mechanics or custom web demos similar to this Snake project, feel free to get in touch.</p>
+				<p class="lang-es">Si quieres explorar interacciones tipo juego, mecánicas en canvas o demos web a medida similares a este proyecto de Snake, puedes contactarme directamente.</p>
+				<ul class="simple-list">
+					<li>Email: <a href="mailto:kendall.mendoza98@gmail.com">kendall.mendoza98@gmail.com</a></li>
+					<li class="lang-en">Phone: +57 316 657 3216 | +57 302 743 9538</li>
+					<li class="lang-es">Teléfono: +57 316 657 3216 | +57 302 743 9538</li>
+				</ul>
+				<a href="index.html#contact" class="button lang-en">More ways to contact me</a>
+				<a href="index.html#contact" class="button lang-es">Más formas de contacto</a>
+			</div>
+		</section>
+	</main>
+	<footer class="site-footer">
 <div class="container footer-content">
 <p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
 <p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
@@ -118,13 +133,20 @@ if (yearSpan) {
 yearSpan.textContent = new Date().getFullYear();
 }
 const languageSelect = document.getElementById("language-select");
-if (languageSelect) {
-languageSelect.addEventListener("change", function () {
-var value = languageSelect.value === "es" ? "es" : "en";
-document.documentElement.setAttribute("data-lang", value);
-document.documentElement.setAttribute("lang", value);
-});
-}
+    if (languageSelect) {
+      const savedLang = localStorage.getItem("preferredLanguage");
+      if (savedLang === "es" || savedLang === "en") {
+        languageSelect.value = savedLang;
+        document.documentElement.setAttribute("data-lang", savedLang);
+        document.documentElement.setAttribute("lang", savedLang);
+      }
+      languageSelect.addEventListener("change", function () {
+        var value = languageSelect.value === "es" ? "es" : "en";
+        localStorage.setItem("preferredLanguage", value);
+        document.documentElement.setAttribute("data-lang", value);
+        document.documentElement.setAttribute("lang", value);
+      });
+    }
 </script>
 </body>
 </html>

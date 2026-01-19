@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Paint Demo | Kendall Mendoza</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  prefix: "tw-",
+  corePlugins: {
+    preflight: false
+  }
+};
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="../assets/icons/favicon_io/site.webmanifest">
+<link rel="icon" href="../assets/icons/favicon_io/favicon.ico">
+</head>
+<body>
+<header class="site-header">
+<div class="container header-content">
+<div class="header-main">
+<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
+<div>
+<h1 class="name">KENDALL MENDOZA</h1>
+<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
+<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
+<p class="location lang-en">Remote | Colombia</p>
+<p class="location lang-es">Remoto | Colombia</p>
+</div>
+</div>
+<div class="header-bottom">
+<nav class="main-nav">
+<a href="../index.html#summary" class="lang-en">Home</a>
+<a href="../index.html#summary" class="lang-es">Inicio</a>
+<a href="../index.html#services" class="lang-en">Services</a>
+<a href="../index.html#services" class="lang-es">Servicios</a>
+<a href="../about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
+<a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="../services/live-demos.html" class="lang-en nav-demo">Demo</a>
+<a href="../services/live-demos.html" class="lang-es nav-demo">Demo</a>
+<select id="language-select" class="language-select">
+<option value="en" selected>English</option>
+<option value="es">Español</option>
+</select>
+</nav>
+</div>
+</div>
+</header>
+<main>
+<section class="section section-alt">
+<div class="container">
+<h2 class="lang-en">Mini Paint Canvas Demo <a href="#mini-paint-root" class="demo-badge">Demo</a></h2>
+<h2 class="lang-es">Demo de Mini Paint Canvas <a href="#mini-paint-root" class="demo-badge">Demo</a></h2>
+<p class="lang-en">Interactive canvas mini paint built in vanilla JavaScript to demonstrate multiple brush engines on the HTML5 Canvas API.</p>
+<p class="lang-es">Mini paint interactivo en canvas construido en JavaScript puro para demostrar múltiples motores de brocha sobre la API de Canvas de HTML5.</p>
+<p class="lang-en">This page focuses on brush behavior, input interpretation, and rendering techniques instead of UI frameworks.</p>
+<p class="lang-es">Esta página se enfoca en comportamiento de brochas, interpretación de input y técnicas de renderizado en lugar de frameworks de UI.</p>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div id="mini-paint-root" class="tw-bg-slate-900 tw-border tw-border-slate-800 tw-rounded-2xl tw-p-4 tw-grid tw-gap-4 tw-grid-cols-1 tw-lg:tw-grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)]">
+<div class="tw-flex tw-flex-col tw-gap-3">
+<div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3">
+        <label class="tw-flex tw-items-center tw-gap-2 tw-text-xs tw-text-slate-100">
+          <span class="lang-en">Brush</span>
+          <span class="lang-es">Brocha</span>
+          <select id="mp-brush-select" class="tw-bg-slate-800 tw-border tw-border-slate-700 tw-rounded-full tw-text-xs tw-text-slate-100 tw-px-3 tw-py-1">
+            <option value="solid">Solid</option>
+            <option value="soft">Soft</option>
+            <option value="calligraphy">Calligraphy</option>
+            <option value="pressure">Pressure-like</option>
+            <option value="dotted">Dotted</option>
+            <option value="texture">Texture</option>
+            <option value="spray">Spray</option>
+            <option value="ribbon">Ribbon</option>
+          </select>
+        </label>
+        <div class="tw-flex tw-items-center tw-gap-2">
+          <button id="mp-eraser" type="button" class="tw-flex tw-items-center tw-justify-center tw-text-xs tw-font-medium tw-rounded-full tw-px-2.5 tw-py-1 tw-bg-slate-800 tw-text-slate-100 tw-border tw-border-slate-600 hover:tw-bg-slate-700">
+            <img src="../assets/icons/eraser_icon.png" alt="Eraser" class="tw-h-3.5 tw-w-3.5">
+          </button>
+          <button id="mp-fill" type="button" class="tw-flex tw-items-center tw-justify-center tw-text-xs tw-font-medium tw-rounded-full tw-px-2.5 tw-py-1 tw-bg-slate-800 tw-text-slate-100 tw-border tw-border-slate-600 hover:tw-bg-slate-700">
+            <img src="../assets/icons/fill_icon.png" alt="Fill" class="tw-h-3.5 tw-w-3.5">
+          </button>
+          <button id="mp-undo" type="button" class="tw-flex tw-items-center tw-justify-center tw-text-xs tw-font-medium tw-rounded-full tw-px-2.5 tw-py-1 tw-bg-slate-800 tw-text-slate-100 tw-border tw-border-slate-600 hover:tw-bg-slate-700">
+            <img src="../assets/icons/undo_icon.png" alt="Undo" class="tw-h-3.5 tw-w-3.5">
+          </button>
+          <button id="mp-redo" type="button" class="tw-flex tw-items-center tw-justify-center tw-text-xs tw-font-medium tw-rounded-full tw-px-2.5 tw-py-1 tw-bg-slate-800 tw-text-slate-100 tw-border tw-border-slate-600 hover:tw-bg-slate-700">
+            <img src="../assets/icons/redo_icon.png" alt="Redo" class="tw-h-3.5 tw-w-3.5">
+          </button>
+<label class="tw-flex tw-items-center tw-gap-2 tw-text-xs tw-text-slate-100">
+<span class="lang-en">Color</span>
+<span class="lang-es">Color</span>
+<input id="mp-color" type="color" value="#22c55e" class="tw-h-7 tw-w-7 tw-rounded tw-border-0 tw-bg-transparent tw-cursor-pointer">
+</label>
+</div>
+<label class="tw-flex tw-items-center tw-gap-2 tw-text-xs tw-text-slate-100">
+<span class="lang-en">Size</span>
+<span class="lang-es">Tamaño</span>
+<input id="mp-size" type="range" min="2" max="40" value="10" class="tw-w-28 tw-accent-sky-400">
+</label>
+<label class="tw-flex tw-items-center tw-gap-2 tw-text-xs tw-text-slate-100">
+<span class="lang-en">Opacity</span>
+<span class="lang-es">Opacidad</span>
+<input id="mp-opacity" type="range" min="0.1" max="1" step="0.05" value="1" class="tw-w-24 tw-accent-emerald-400">
+</label>
+<button id="mp-clear" type="button" class="tw-ml-auto tw-text-xs tw-font-medium tw-rounded-full tw-px-3 tw-py-1 tw-bg-slate-800 tw-text-slate-100 tw-border tw-border-slate-600 hover:tw-bg-slate-700">
+<span class="lang-en">Clear</span>
+<span class="lang-es">Limpiar</span>
+</button>
+</div>
+<div class="tw-flex tw-flex-wrap tw-items-center tw-gap-2 tw-text-[10px] tw-text-slate-300">
+<span class="lang-en">Mode</span>
+<span class="lang-es">Modo</span>
+<span id="mp-mode-label" class="tw-font-semibold tw-text-emerald-300">Solid brush</span>
+<span class="tw-opacity-60">•</span>
+<span class="lang-en">Speed</span>
+<span class="lang-es">Velocidad</span>
+<span id="mp-speed-label" class="tw-tabular-nums">0 px/s</span>
+</div>
+<div class="tw-relative tw-overflow-hidden tw-rounded-xl tw-bg-slate-950 tw-border tw-border-slate-800 tw-aspect-[16/9]">
+<canvas id="mp-canvas" class="tw-w-full tw-h-full tw-block"></canvas>
+</div>
+<div class="tw-flex tw-items-center tw-justify-end tw-gap-2 tw-mt-2">
+<div class="tw-relative">
+<button id="mp-download" type="button" class="tw-text-xs tw-font-medium tw-rounded-full tw-px-3 tw-py-1 tw-bg-slate-800 tw-text-slate-100 tw-border tw-border-slate-600 hover:tw-bg-slate-700">
+<span class="lang-en">Download PNG</span>
+<span class="lang-es">Descargar PNG</span>
+</button>
+<div id="mp-download-menu" class="tw-absolute tw-right-0 tw-mt-1 tw-bg-slate-900 tw-border tw-border-slate-700 tw-rounded-lg tw-shadow-lg tw-py-1 tw-min-w-[160px] tw-hidden">
+<button type="button" data-mp-download-bg="solid" class="tw-w-full tw-text-left tw-text-[11px] tw-px-3 tw-py-1.5 tw-text-slate-100 download-menu-item">
+<span class="lang-en">With background</span>
+<span class="lang-es">Con fondo</span>
+</button>
+<button type="button" data-mp-download-bg="transparent" class="tw-w-full tw-text-left tw-text-[11px] tw-px-3 tw-py-1.5 tw-text-slate-100 download-menu-item">
+<span class="lang-en">Transparent background</span>
+<span class="lang-es">Fondo transparente</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="tw-bg-slate-950 tw-border tw-border-slate-800 tw-rounded-xl tw-p-3 tw-flex tw-flex-col tw-gap-3">
+<h3 class="tw-text-slate-100 tw-text-sm tw-font-semibold">
+<span class="lang-en">Brushes overview</span>
+<span class="lang-es">Resumen de brochas</span>
+</h3>
+<div class="tw-grid tw-grid-cols-1 tw-gap-2 tw-text-[11px] tw-text-slate-300">
+<div class="tw-border tw-border-emerald-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-emerald-300">Solid Brush</div>
+<div class="lang-en">Uniform stroke with size and opacity control.</div>
+<div class="lang-es">Trazo uniforme con tamaño y opacidad configurables.</div>
+</div>
+<div class="tw-border tw-border-emerald-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-emerald-300">Eraser</div>
+<div class="lang-en">Erases using canvas composition modes.</div>
+<div class="lang-es">Borra usando modos de composición del canvas.</div>
+</div>
+<div class="tw-border tw-border-emerald-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-emerald-300">Soft Brush</div>
+<div class="lang-en">Soft edges, ideal for shading.</div>
+<div class="lang-es">Bordes suaves, ideal para sombreado.</div>
+</div>
+<div class="tw-border tw-border-sky-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-sky-300">Calligraphy</div>
+<div class="lang-en">Stroke width reacts to direction.</div>
+<div class="lang-es">El grosor reacciona a la dirección del trazo.</div>
+</div>
+<div class="tw-border tw-border-sky-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-sky-300">Pressure-like</div>
+<div class="lang-en">Simulated pressure from cursor speed.</div>
+<div class="lang-es">Presión simulada a partir de la velocidad del cursor.</div>
+</div>
+<div class="tw-border tw-border-sky-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-sky-300">Dotted / Stipple</div>
+<div class="lang-en">Stroke composed of configurable dots.</div>
+<div class="lang-es">Trazo compuesto por puntos configurables.</div>
+</div>
+<div class="tw-border tw-border-fuchsia-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-fuchsia-300">Texture</div>
+<div class="lang-en">Noise-based texture, similar to charcoal.</div>
+<div class="lang-es">Textura basada en ruido, similar a carboncillo.</div>
+</div>
+<div class="tw-border tw-border-fuchsia-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-fuchsia-300">Spray</div>
+<div class="lang-en">Controlled spray of random particles.</div>
+<div class="lang-es">Spray controlado de partículas aleatorias.</div>
+</div>
+<div class="tw-border tw-border-fuchsia-500/40 tw-rounded-lg tw-p-2">
+<div class="tw-font-semibold tw-text-fuchsia-300">Ribbon</div>
+<div class="lang-en">Smoothed stroke using point interpolation.</div>
+<div class="lang-es">Trazo suavizado usando interpolación de puntos.</div>
+</div>
+</div>
+</div>
+      <div class="tw-bg-slate-950 tw-border tw-border-slate-800 tw-rounded-xl tw-p-3 tw-flex tw-flex-col tw-gap-3 tw-mt-3">
+        <h3 class="tw-text-slate-100 tw-text-sm tw-font-semibold">
+          <span class="lang-en">Project overview</span>
+          <span class="lang-es">Project overview</span>
+        </h3>
+        <p class="tw-text-[11px] tw-text-slate-300 lang-en">
+          This mini paint explores how to combine multiple brush engines, a background-aware eraser, and a flood fill tool on top of the HTML5 Canvas API, keeping the implementation in vanilla JavaScript with no UI framework.
+        </p>
+        <p class="tw-text-[11px] tw-text-slate-300 lang-es">
+          Este mini paint explora cómo combinar varios motores de brocha, un borrador que entiende el color de fondo y una herramienta de relleno sobre la API de Canvas de HTML5, manteniendo la implementación en JavaScript puro sin framework de UI.
+        </p>
+        <h4 class="tw-text-slate-100 tw-text-xs tw-font-semibold">
+          <span class="lang-en">Tech and tools</span>
+          <span class="lang-es">Tecnologías y herramientas</span>
+        </h4>
+        <div class="tools-logos">
+          <img class="lang-en" src="../assets/icons/Typescript.png" alt="TypeScript-like structured JavaScript">
+          <img class="lang-es" src="../assets/icons/Typescript.png" alt="JavaScript estructurado inspirado en TypeScript">
+          <img class="lang-en" src="../assets/icons/Visual_Studio_Code_1.35_icon.svg.png" alt="Visual Studio Code">
+          <img class="lang-es" src="../assets/icons/Visual_Studio_Code_1.35_icon.svg.png" alt="Visual Studio Code para edición de código">
+          <img class="lang-en" src="../assets/icons/git-icon-logo.png" alt="Git">
+          <img class="lang-es" src="../assets/icons/git-icon-logo.png" alt="Git para control de versiones">
+          <img class="lang-en" src="../assets/icons/github.png" alt="GitHub Pages">
+          <img class="lang-es" src="../assets/icons/github.png" alt="GitHub Pages para hosting del demo">
+        </div>
+        <h4 class="tw-text-slate-100 tw-text-xs tw-font-semibold">
+          <span class="lang-en">Challenges and how they were solved</span>
+          <span class="lang-es">Retos y cómo se resolvieron</span>
+        </h4>
+        <ul class="simple-list tw-text-[11px] tw-text-slate-300">
+          <li class="lang-en"><strong>Smart Background Detection</strong><br>The flood fill algorithm goes beyond just changing pixels: it analyzes the filled area's coverage and edge contact to infer if the global background has changed. This automatically updates the eraser tool to paint with the new background color, keeping the tools context-aware without manual adjustment.</li>
+          <li class="lang-es"><strong>Detección inteligente de fondo</strong><br>El algoritmo de relleno va más allá de cambiar píxeles: analiza la cobertura del área y el contacto con los bordes para inferir si el fondo global cambió. Esto actualiza automáticamente el borrador para pintar con el nuevo color de fondo, manteniendo las herramientas conscientes del contexto sin ajustes manuales.</li>
+          <li class="lang-en"><strong>Context-aware Tooling</strong><br>Tools like Fill are designed for flow. The application remembers your previous brush state, so after performing a one-off action like filling the canvas, it automatically switches you back to your drawing tool, reducing friction and click fatigue.</li>
+          <li class="lang-es"><strong>Herramientas conscientes del contexto</strong><br>Herramientas como Rellenar están diseñadas para el flujo de trabajo. La aplicación recuerda tu brocha anterior, por lo que tras una acción puntual como rellenar el canvas, te devuelve automáticamente a tu herramienta de dibujo, reduciendo la fricción y los clics innecesarios.</li>
+          <li class="lang-en"><strong>Coordinating multiple brush engines</strong><br>Each brush uses a different rendering strategy (solid strokes, gradients, particles, ribbons). Shared helpers for distance, interpolation and color conversion keep the code small while still allowing new brushes to be added.</li>
+          <li class="lang-es"><strong>Coordinar varios motores de brocha</strong><br>Cada brocha usa una estrategia de renderizado distinta (trazos sólidos, gradientes, partículas, cintas). Helpers compartidos para distancia, interpolación y conversión de color mantienen el código compacto y permiten seguir agregando brochas.</li>
+          <li class="lang-en"><strong>Undo/redo with image snapshots</strong><br>Because the canvas does not expose individual strokes, history is implemented with capped image snapshots. This keeps undo/redo responsive while still allowing several steps in both directions.</li>
+          <li class="lang-es"><strong>Deshacer/rehacer con snapshots de imagen</strong><br>Como el canvas no expone trazos individuales, el historial se implementa con snapshots de imagen limitados. Esto mantiene deshacer/rehacer ágil y permite varios pasos en ambas direcciones.</li>
+        </ul>
+      </div>
+</div>
+</div>
+<section id="contact" class="section section-alt">
+<div class="container">
+<h2 class="lang-en">Contact</h2>
+<h2 class="lang-es">Contacto</h2>
+<p class="lang-en">If you would like to build a custom interactive demo, canvas tool or frontend system with similar attention to detail, feel free to reach out.</p>
+<p class="lang-es">Si quieres construir un demo interactivo a medida, una herramienta en canvas o un sistema frontend con un nivel similar de detalle, no dudes en contactarme.</p>
+<ul class="simple-list">
+<li>Email: <a href="mailto:kendall.mendoza98@gmail.com">kendall.mendoza98@gmail.com</a></li>
+<li class="lang-en">Phone: +57 316 657 3216 | +57 302 743 9538</li>
+<li class="lang-es">Teléfono: +57 316 657 3216 | +57 302 743 9538</li>
+</ul>
+<a href="../index.html#contact" class="button lang-en">More ways to contact me</a>
+<a href="../index.html#contact" class="button lang-es">Más formas de contacto</a>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-content">
+<p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
+<p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
+<nav class="footer-nav">
+<a href="../index.html#summary" class="lang-en">Home</a>
+<a href="../index.html#summary" class="lang-es">Inicio</a>
+<a href="../index.html#services" class="lang-en">Services</a>
+<a href="../index.html#services" class="lang-es">Servicios</a>
+<a href="../about.html" class="lang-en">About me</a>
+<a href="../about.html" class="lang-es">Sobre mí</a>
+</nav>
+</div>
+</footer>
+<script>
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+yearSpan.textContent = new Date().getFullYear();
+}
+const languageSelect = document.getElementById("language-select");
+    if (languageSelect) {
+      const savedLang = localStorage.getItem("preferredLanguage");
+      if (savedLang === "es" || savedLang === "en") {
+        languageSelect.value = savedLang;
+        document.documentElement.setAttribute("data-lang", savedLang);
+        document.documentElement.setAttribute("lang", savedLang);
+      }
+      languageSelect.addEventListener("change", function () {
+        var value = languageSelect.value === "es" ? "es" : "en";
+        localStorage.setItem("preferredLanguage", value);
+        document.documentElement.setAttribute("data-lang", value);
+        document.documentElement.setAttribute("lang", value);
+      });
+    }
+const mpCanvas = document.getElementById("mp-canvas");
+if (mpCanvas) {
+const ctx = mpCanvas.getContext("2d");
+const brushSelect = document.getElementById("mp-brush-select");
+const eraserButton = document.getElementById("mp-eraser");
+const colorInput = document.getElementById("mp-color");
+const sizeInput = document.getElementById("mp-size");
+const opacityInput = document.getElementById("mp-opacity");
+const clearButton = document.getElementById("mp-clear");
+const downloadButton = document.getElementById("mp-download");
+const downloadMenu = document.getElementById("mp-download-menu");
+const undoButton = document.getElementById("mp-undo");
+const redoButton = document.getElementById("mp-redo");
+    const modeLabel = document.getElementById("mp-mode-label");
+    const speedLabel = document.getElementById("mp-speed-label");
+    let brush = "solid";
+    let previousBrush = "solid";
+let color = colorInput && colorInput.value ? colorInput.value : "#22c55e";
+let size = sizeInput && sizeInput.value ? Number(sizeInput.value) : 10;
+let opacity = opacityInput && opacityInput.value ? Number(opacityInput.value) : 1;
+let drawing = false;
+let lastX = 0;
+let lastY = 0;
+let lastTime = 0;
+let speed = 0;
+let ribbonPoints = [];
+let texturePattern = null;
+let dottedAccumulator = 0;
+let historyStack = [];
+let redoStack = [];
+const MAX_HISTORY_ENTRIES = 50;
+let canvasBackgroundColor = null;
+function hexToRgbArray(hex) {
+let value = hex.replace("#", "");
+if (value.length === 3) {
+value = value[0] + value[0] + value[1] + value[1] + value[2] + value[2];
+}
+const r = parseInt(value.slice(0, 2), 16);
+const g = parseInt(value.slice(2, 4), 16);
+const b = parseInt(value.slice(4, 6), 16);
+return [r, g, b];
+}
+function updateUndoRedoButtons() {
+if (!undoButton || !redoButton) {
+return;
+}
+const undoEnabled = historyStack.length > 0;
+const redoEnabled = redoStack.length > 0;
+undoButton.disabled = !undoEnabled;
+redoButton.disabled = !redoEnabled;
+const disabledClasses = ["tw-opacity-40", "tw-cursor-not-allowed"];
+if (undoEnabled) {
+undoButton.classList.remove.apply(undoButton.classList, disabledClasses);
+} else {
+undoButton.classList.add.apply(undoButton.classList, disabledClasses);
+}
+if (redoEnabled) {
+redoButton.classList.remove.apply(redoButton.classList, disabledClasses);
+} else {
+redoButton.classList.add.apply(redoButton.classList, disabledClasses);
+}
+}
+function setCanvasSize() {
+const rect = mpCanvas.getBoundingClientRect();
+const dpr = window.devicePixelRatio || 1;
+mpCanvas.width = rect.width * dpr;
+mpCanvas.height = rect.height * dpr;
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.scale(dpr, dpr);
+ctx.lineCap = "round";
+ctx.lineJoin = "round";
+}
+setCanvasSize();
+updateUndoRedoButtons();
+window.addEventListener("resize", setCanvasSize);
+function pushHistory() {
+try {
+const image = ctx.getImageData(0, 0, mpCanvas.width, mpCanvas.height);
+historyStack.push(image);
+if (historyStack.length > MAX_HISTORY_ENTRIES) {
+historyStack.shift();
+}
+redoStack = [];
+updateUndoRedoButtons();
+} catch (error) {
+}
+}
+function applyImageData(image) {
+if (!image) {
+return;
+}
+ctx.putImageData(image, 0, 0);
+}
+function undo() {
+if (historyStack.length === 0) {
+return;
+}
+try {
+const current = ctx.getImageData(0, 0, mpCanvas.width, mpCanvas.height);
+redoStack.push(current);
+const previous = historyStack.pop();
+applyImageData(previous);
+updateUndoRedoButtons();
+} catch (error) {
+}
+}
+function redo() {
+if (redoStack.length === 0) {
+return;
+}
+try {
+const current = ctx.getImageData(0, 0, mpCanvas.width, mpCanvas.height);
+historyStack.push(current);
+const next = redoStack.pop();
+applyImageData(next);
+updateUndoRedoButtons();
+} catch (error) {
+}
+}
+function hexToRgbaString(hex, alphaValue) {
+let value = hex.replace("#", "");
+if (value.length === 3) {
+value = value[0] + value[0] + value[1] + value[1] + value[2] + value[2];
+}
+const r = parseInt(value.slice(0, 2), 16);
+const g = parseInt(value.slice(2, 4), 16);
+const b = parseInt(value.slice(4, 6), 16);
+return "rgba(" + r + "," + g + "," + b + "," + alphaValue + ")";
+}
+function ensureTexturePattern() {
+if (texturePattern) {
+return;
+}
+const off = document.createElement("canvas");
+off.width = 32;
+off.height = 32;
+const octx = off.getContext("2d");
+octx.fillStyle = "#020617";
+octx.fillRect(0, 0, off.width, off.height);
+octx.fillStyle = "rgba(226,232,240,0.12)";
+for (let i = 0; i < 220; i++) {
+const x = Math.random() * off.width;
+const y = Math.random() * off.height;
+const r = Math.random() * 1.4;
+octx.beginPath();
+octx.arc(x, y, r, 0, Math.PI * 2);
+octx.fill();
+}
+texturePattern = ctx.createPattern(off, "repeat");
+}
+function updateModeLabel() {
+if (!modeLabel) {
+return;
+}
+const map = {
+solid: { en: "Solid brush", es: "Brocha sólida" },
+eraser: { en: "Eraser", es: "Borrador" },
+fill: { en: "Fill area", es: "Rellenar área" },
+soft: { en: "Soft brush", es: "Brocha suave" },
+calligraphy: { en: "Calligraphy", es: "Caligrafía" },
+pressure: { en: "Pressure-like", es: "Presión simulada" },
+dotted: { en: "Dotted / Stipple", es: "Punteado" },
+texture: { en: "Texture", es: "Textura" },
+spray: { en: "Spray", es: "Spray" },
+ribbon: { en: "Ribbon / Smooth", es: "Cinta suave" }
+};
+const lang = document.documentElement.getAttribute("data-lang") === "es" ? "es" : "en";
+modeLabel.textContent = map[brush][lang];
+}
+updateModeLabel();
+function updateSpeedLabel() {
+if (!speedLabel) {
+return;
+}
+const value = Math.round(speed);
+speedLabel.textContent = value + " px/s";
+}
+function getPoint(event) {
+const rect = mpCanvas.getBoundingClientRect();
+return {
+x: event.clientX - rect.left,
+y: event.clientY - rect.top
+};
+}
+function distance(aX, aY, bX, bY) {
+const dx = aX - bX;
+const dy = aY - bY;
+return Math.sqrt(dx * dx + dy * dy);
+}
+function lerp(a, b, t) {
+return a + (b - a) * t;
+}
+function drawSolid(x, y) {
+ctx.globalCompositeOperation = "source-over";
+ctx.strokeStyle = hexToRgbaString(color, opacity);
+ctx.lineWidth = size;
+ctx.beginPath();
+ctx.moveTo(lastX, lastY);
+ctx.lineTo(x, y);
+ctx.stroke();
+}
+function drawEraser(x, y) {
+if (canvasBackgroundColor) {
+ctx.globalCompositeOperation = "source-over";
+ctx.strokeStyle = canvasBackgroundColor;
+} else {
+ctx.globalCompositeOperation = "destination-out";
+ctx.strokeStyle = "rgba(0,0,0,1)";
+}
+ctx.lineWidth = size;
+ctx.beginPath();
+ctx.moveTo(lastX, lastY);
+ctx.lineTo(x, y);
+ctx.stroke();
+ctx.globalCompositeOperation = "source-over";
+}
+function drawSoft(x, y) {
+ctx.globalCompositeOperation = "source-over";
+const steps = Math.max(1, Math.floor(distance(lastX, lastY, x, y) / (size * 0.3)));
+for (let i = 0; i <= steps; i++) {
+const t = i / steps;
+const px = lerp(lastX, x, t);
+const py = lerp(lastY, y, t);
+const g = ctx.createRadialGradient(px, py, 0, px, py, size);
+g.addColorStop(0, hexToRgbaString(color, opacity));
+g.addColorStop(1, hexToRgbaString(color, 0));
+ctx.fillStyle = g;
+ctx.beginPath();
+ctx.arc(px, py, size, 0, Math.PI * 2);
+ctx.fill();
+}
+}
+function drawCalligraphy(x, y) {
+ctx.globalCompositeOperation = "source-over";
+const dx = x - lastX;
+const dy = y - lastY;
+const len = Math.sqrt(dx * dx + dy * dy) || 1;
+const nx = dx / len;
+const ny = dy / len;
+const base = size;
+const angleWidth = base * (0.6 + Math.abs(nx) * 0.9);
+const offsetX = -ny * angleWidth * 0.5;
+const offsetY = nx * angleWidth * 0.5;
+const p1x = lastX + offsetX;
+const p1y = lastY + offsetY;
+const p2x = lastX - offsetX;
+const p2y = lastY - offsetY;
+const p3x = x - offsetX;
+const p3y = y - offsetY;
+const p4x = x + offsetX;
+const p4y = y + offsetY;
+ctx.fillStyle = hexToRgbaString(color, opacity);
+ctx.beginPath();
+ctx.moveTo(p1x, p1y);
+ctx.lineTo(p2x, p2y);
+ctx.lineTo(p3x, p3y);
+ctx.lineTo(p4x, p4y);
+ctx.closePath();
+ctx.fill();
+}
+function drawPressure(x, y) {
+const minSize = 2;
+const maxSize = size;
+const clampedSpeed = Math.min(speed, 1200);
+const t = clampedSpeed / 1200;
+const current = lerp(maxSize, minSize, t);
+ctx.globalCompositeOperation = "source-over";
+ctx.strokeStyle = hexToRgbaString(color, opacity);
+ctx.lineWidth = current;
+ctx.beginPath();
+ctx.moveTo(lastX, lastY);
+ctx.lineTo(x, y);
+ctx.stroke();
+}
+function drawDotted(x, y) {
+ctx.globalCompositeOperation = "source-over";
+const spacing = size * 1.2;
+const segmentLength = distance(lastX, lastY, x, y);
+let traveled = dottedAccumulator;
+for (; traveled <= segmentLength; traveled += spacing) {
+const t = traveled / segmentLength;
+const px = lerp(lastX, x, t);
+const py = lerp(lastY, y, t);
+ctx.fillStyle = hexToRgbaString(color, opacity);
+ctx.beginPath();
+ctx.arc(px, py, size * 0.4, 0, Math.PI * 2);
+ctx.fill();
+}
+dottedAccumulator = traveled - segmentLength;
+}
+function drawTexture(x, y) {
+ensureTexturePattern();
+ctx.globalCompositeOperation = "source-over";
+ctx.strokeStyle = hexToRgbaString(color, opacity * 0.5);
+ctx.lineWidth = size * 0.4;
+ctx.beginPath();
+ctx.moveTo(lastX, lastY);
+ctx.lineTo(x, y);
+ctx.stroke();
+ctx.save();
+ctx.globalAlpha = 0.7;
+ctx.fillStyle = texturePattern;
+const radius = size * 0.9;
+ctx.beginPath();
+ctx.arc(x, y, radius, 0, Math.PI * 2);
+ctx.fill();
+ctx.restore();
+}
+function drawSpray(x, y) {
+ctx.globalCompositeOperation = "source-over";
+const radius = size * 1.2;
+const count = Math.floor(size * 1.5);
+ctx.fillStyle = hexToRgbaString(color, opacity * 0.4);
+for (let i = 0; i < count; i++) {
+const angle = Math.random() * Math.PI * 2;
+const r = Math.random() * radius;
+const px = x + Math.cos(angle) * r;
+const py = y + Math.sin(angle) * r;
+ctx.beginPath();
+ctx.arc(px, py, 0.8 + Math.random() * 1.1, 0, Math.PI * 2);
+ctx.fill();
+}
+}
+function drawRibbon(x, y) {
+ribbonPoints.push({ x, y });
+if (ribbonPoints.length > 20) {
+ribbonPoints.shift();
+}
+if (ribbonPoints.length < 3) {
+return;
+}
+ctx.globalCompositeOperation = "source-over";
+ctx.strokeStyle = hexToRgbaString(color, opacity);
+ctx.lineWidth = size * 0.6;
+ctx.beginPath();
+for (let i = 0; i < ribbonPoints.length; i++) {
+const p = ribbonPoints[i];
+if (i === 0) {
+ctx.moveTo(p.x, p.y);
+} else {
+ctx.lineTo(p.x, p.y);
+}
+}
+ctx.stroke();
+}
+function drawByBrush(x, y) {
+if (brush === "solid") {
+drawSolid(x, y);
+} else if (brush === "eraser") {
+drawEraser(x, y);
+} else if (brush === "soft") {
+drawSoft(x, y);
+} else if (brush === "calligraphy") {
+drawCalligraphy(x, y);
+} else if (brush === "pressure") {
+drawPressure(x, y);
+} else if (brush === "dotted") {
+drawDotted(x, y);
+} else if (brush === "texture") {
+drawTexture(x, y);
+} else if (brush === "spray") {
+drawSpray(x, y);
+} else if (brush === "ribbon") {
+drawRibbon(x, y);
+}
+lastX = x;
+lastY = y;
+}
+function floodFillAtPoint(pointX, pointY) {
+const rect = mpCanvas.getBoundingClientRect();
+const dpr = window.devicePixelRatio || 1;
+const x = Math.floor(pointX * dpr);
+const y = Math.floor(pointY * dpr);
+if (x < 0 || y < 0 || x >= mpCanvas.width || y >= mpCanvas.height) {
+return;
+}
+let image;
+try {
+image = ctx.getImageData(0, 0, mpCanvas.width, mpCanvas.height);
+} catch (error) {
+return;
+}
+const data = image.data;
+const width = image.width;
+const index = (y * width + x) * 4;
+const targetR = data[index];
+const targetG = data[index + 1];
+const targetB = data[index + 2];
+const targetA = data[index + 3];
+const fillRgb = hexToRgbArray(color);
+const fillA = Math.round((opacity != null ? opacity : 1) * 255);
+if (targetR === fillRgb[0] && targetG === fillRgb[1] && targetB === fillRgb[2] && targetA === fillA) {
+return;
+}
+const stack = [[x, y]];
+let pixelsChanged = 0;
+let touchedTop = false;
+let touchedBottom = false;
+let touchedLeft = false;
+let touchedRight = false;
+const height = image.height;
+while (stack.length > 0) {
+const current = stack.pop();
+const cx = current[0];
+const cy = current[1];
+if (cx < 0 || cy < 0 || cx >= mpCanvas.width || cy >= mpCanvas.height) {
+continue;
+}
+const idx = (cy * width + cx) * 4;
+const r = data[idx];
+const g = data[idx + 1];
+const b = data[idx + 2];
+const a = data[idx + 3];
+if (r === targetR && g === targetG && b === targetB && a === targetA) {
+data[idx] = fillRgb[0];
+data[idx + 1] = fillRgb[1];
+data[idx + 2] = fillRgb[2];
+data[idx + 3] = fillA;
+pixelsChanged++;
+if (cx === 0) touchedLeft = true;
+if (cx === width - 1) touchedRight = true;
+if (cy === 0) touchedTop = true;
+if (cy === height - 1) touchedBottom = true;
+stack.push([cx + 1, cy]);
+stack.push([cx - 1, cy]);
+stack.push([cx, cy + 1]);
+stack.push([cx, cy - 1]);
+}
+}
+ctx.putImageData(image, 0, 0);
+const totalPixels = width * height;
+if (touchedLeft && touchedRight && touchedTop && touchedBottom && (pixelsChanged > totalPixels * 0.5)) {
+canvasBackgroundColor = "rgba(" + fillRgb[0] + "," + fillRgb[1] + "," + fillRgb[2] + "," + fillA / 255 + ")";
+}
+}
+    function startDrawing(event) {
+event.preventDefault();
+const point = getPoint(event);
+lastX = point.x;
+lastY = point.y;
+lastTime = performance.now();
+speed = 0;
+ribbonPoints = [{ x: lastX, y: lastY }];
+dottedAccumulator = 0;
+drawing = true;
+pushHistory();
+if (brush === "fill") {
+        floodFillAtPoint(point.x, point.y);
+        drawing = false;
+        const nextBrush = previousBrush || "solid";
+        brush = nextBrush;
+        updateModeLabel();
+        if (brushSelect && nextBrush !== "eraser" && nextBrush !== "fill") {
+          brushSelect.value = nextBrush;
+        }
+        return;
+}
+if (brush === "spray") {
+drawSpray(point.x, point.y);
+ribbonPoints = [];
+}
+}
+function moveDrawing(event) {
+if (!drawing) {
+return;
+}
+event.preventDefault();
+const point = getPoint(event);
+const now = performance.now();
+const dt = (now - lastTime) / 1000;
+const dist = distance(lastX, lastY, point.x, point.y);
+if (dt > 0) {
+speed = dist / dt;
+updateSpeedLabel();
+}
+lastTime = now;
+drawByBrush(point.x, point.y);
+}
+function stopDrawing() {
+if (!drawing) {
+return;
+}
+drawing = false;
+ribbonPoints = [];
+}
+mpCanvas.addEventListener("pointerdown", startDrawing);
+mpCanvas.addEventListener("pointermove", moveDrawing);
+window.addEventListener("pointerup", stopDrawing);
+if (brushSelect) {
+brushSelect.addEventListener("change", function (event) {
+brush = event.target.value;
+updateModeLabel();
+});
+}
+    if (eraserButton) {
+      eraserButton.addEventListener("click", function () {
+        brush = "eraser";
+        previousBrush = "eraser";
+        updateModeLabel();
+      });
+    }
+    const fillButton = document.getElementById("mp-fill");
+    if (fillButton) {
+      fillButton.addEventListener("click", function () {
+        previousBrush = brush;
+        brush = "fill";
+        updateModeLabel();
+      });
+    }
+if (colorInput) {
+colorInput.addEventListener("input", function (event) {
+color = event.target.value || color;
+});
+}
+if (sizeInput) {
+sizeInput.addEventListener("input", function (event) {
+const value = Number(event.target.value);
+if (!Number.isNaN(value) && value > 0) {
+size = value;
+}
+});
+}
+if (opacityInput) {
+opacityInput.addEventListener("input", function (event) {
+const value = Number(event.target.value);
+if (!Number.isNaN(value) && value > 0 && value <= 1) {
+opacity = value;
+}
+});
+}
+if (clearButton) {
+clearButton.addEventListener("click", function () {
+const rect = mpCanvas.getBoundingClientRect();
+pushHistory();
+ctx.clearRect(0, 0, rect.width, rect.height);
+canvasBackgroundColor = null;
+});
+}
+if (undoButton) {
+undoButton.addEventListener("click", function () {
+undo();
+});
+}
+if (redoButton) {
+redoButton.addEventListener("click", function () {
+redo();
+});
+}
+function downloadImage(bgMode) {
+const exportCanvas = document.createElement("canvas");
+exportCanvas.width = mpCanvas.width;
+exportCanvas.height = mpCanvas.height;
+const exportCtx = exportCanvas.getContext("2d");
+const mode = bgMode === "transparent" ? "transparent" : "solid";
+if (mode === "solid") {
+exportCtx.fillStyle = "#020617";
+exportCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+} else {
+exportCtx.clearRect(0, 0, exportCanvas.width, exportCanvas.height);
+}
+exportCtx.drawImage(mpCanvas, 0, 0, exportCanvas.width, exportCanvas.height);
+const dataUrl = exportCanvas.toDataURL("image/png");
+const link = document.createElement("a");
+const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+link.href = dataUrl;
+link.download = "mini-paint-" + timestamp + ".png";
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+}
+if (downloadButton && downloadMenu) {
+downloadButton.addEventListener("click", function (event) {
+event.stopPropagation();
+const isHidden = downloadMenu.classList.contains("tw-hidden");
+if (isHidden) {
+downloadMenu.classList.remove("tw-hidden");
+} else {
+downloadMenu.classList.add("tw-hidden");
+}
+});
+downloadMenu.addEventListener("click", function (event) {
+const target = event.target.closest("[data-mp-download-bg]");
+if (!target) {
+return;
+}
+const mode = target.getAttribute("data-mp-download-bg");
+downloadImage(mode);
+downloadMenu.classList.add("tw-hidden");
+});
+window.addEventListener("click", function (event) {
+if (!downloadMenu.contains(event.target) && event.target !== downloadButton) {
+downloadMenu.classList.add("tw-hidden");
+}
+});
+}
+window.addEventListener("keydown", function (event) {
+const key = event.key;
+const ctrlOrMeta = event.ctrlKey || event.metaKey;
+if (!ctrlOrMeta) {
+return;
+}
+if (key === "z" || key === "Z") {
+event.preventDefault();
+if (event.shiftKey) {
+redo();
+} else {
+undo();
+}
+} else if (key === "y" || key === "Y") {
+event.preventDefault();
+redo();
+}
+});
+}
+</script>
+</body>
+</html>
