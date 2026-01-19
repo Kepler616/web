@@ -317,57 +317,74 @@ function snakeParseJsonResponse(response) {
 }
 
 function snakeRenderLeaderboard(scores) {
-if (!snakeLeaderboardTable) {
-return;
-}
-var tbody = snakeLeaderboardTable.querySelector("tbody");
-if (!tbody) {
-return;
-}
-tbody.innerHTML = "";
-if (!scores || !scores.length) {
-var tr = document.createElement("tr");
-var td = document.createElement("td");
-td.colSpan = 3;
-td.style.textAlign = "center";
-td.style.color = "#6b7280";
-td.textContent = "No scores yet";
-tr.appendChild(td);
-tbody.appendChild(tr);
-return;
-}
-for (var i = 0; i < scores.length; i++) {
-var entry = scores[i];
-var tr = document.createElement("tr");
-var tdRank = document.createElement("td");
-tdRank.textContent = String(i + 1);
-tr.appendChild(tdRank);
-var tdUser = document.createElement("td");
-tdUser.textContent = entry.username || "Anonymous";
-tr.appendChild(tdUser);
-var tdScore = document.createElement("td");
-tdScore.textContent = String(entry.score);
-tdScore.style.fontWeight = "bold";
-tdScore.style.color = "#22c55e";
-tr.appendChild(tdScore);
-tbody.appendChild(tr);
-}
-}
-function snakeFetchLeaderboard() {
-authFetch("/api/snake/leaderboard", {
-method: "GET"
-})
-.then(snakeParseJsonResponse)
-.then(function (result) {
-if (result.ok && result.body && Array.isArray(result.body.scores)) {
-snakeRenderLeaderboard(result.body.scores);
-} else {
-// fallback mock if endpoint fails or doesn't exist yet
-// snakeRenderLeaderboard([]);
-}
-})
-.catch(function () {});
-}
+      if (!snakeLeaderboardTable) {
+        return;
+      }
+      var tbody = snakeLeaderboardTable.querySelector("tbody");
+      if (!tbody) {
+        return;
+      }
+      tbody.innerHTML = "";
+      
+      var data = scores || [];
+      var hasData = data.length > 0;
+      
+      // Always render 5 rows
+      for (var i = 0; i < 5; i++) {
+        var entry = data[i];
+        var tr = document.createElement("tr");
+        
+        // Rank
+        var tdRank = document.createElement("td");
+        tdRank.textContent = String(i + 1);
+        tdRank.style.color = "#9ca3af";
+        tr.appendChild(tdRank);
+        
+        // User
+        var tdUser = document.createElement("td");
+        tdUser.textContent = entry ? (entry.username || "Anonymous") : "–";
+        if (!entry) tdUser.style.color = "#4b5563";
+        tr.appendChild(tdUser);
+        
+        // Score
+        var tdScore = document.createElement("td");
+        if (entry) {
+          tdScore.textContent = String(entry.score);
+          tdScore.style.fontWeight = "bold";
+          tdScore.style.color = "#22c55e";
+        } else {
+          tdScore.textContent = "–";
+          tdScore.style.color = "#4b5563";
+        }
+        tr.appendChild(tdScore);
+        
+        tbody.appendChild(tr);
+      }
+      
+      if (!hasData && data.length === 0) {
+         // Optional: if strictly no data at all, we still show the 5 empty slots, 
+         // but maybe we want a small note or just leave it as empty slots.
+         // The loop above handles it gracefully.
+      }
+    }
+    function snakeFetchLeaderboard() {
+      authFetch("/api/snake/leaderboard", {
+        method: "GET"
+      })
+      .then(snakeParseJsonResponse)
+      .then(function (result) {
+        if (result.ok && result.body && Array.isArray(result.body.scores)) {
+          snakeRenderLeaderboard(result.body.scores);
+        } else {
+          console.warn("Leaderboard fetch failed or invalid:", result);
+          snakeRenderLeaderboard([]);
+        }
+      })
+      .catch(function (err) {
+        console.error("Leaderboard network error:", err);
+        snakeRenderLeaderboard([]);
+      });
+    }
 // Event listeners for auth
 window.addEventListener("auth:login", function(e) {
   var user = e.detail;

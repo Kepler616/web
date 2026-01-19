@@ -111,7 +111,7 @@
 <div class="card-body">
 <p id="admin-drawings-status-en" class="lang-en"></p>
 <p id="admin-drawings-status-es" class="lang-es"></p>
-<div class="table-wrapper" style="margin-top:0.75rem;">
+<div class="table-wrapper" style="margin-top:0.75rem; min-height: 300px;">
 <table class="table" id="admin-drawings-table">
 <thead>
 <tr>
@@ -140,7 +140,7 @@
 <div class="card-body">
 <p id="admin-approved-status-en" class="lang-en"></p>
 <p id="admin-approved-status-es" class="lang-es"></p>
-<div class="table-wrapper" style="margin-top:0.75rem;">
+<div class="table-wrapper" style="margin-top:0.75rem; min-height: 300px;">
 <table class="table" id="admin-approved-table">
 <thead>
 <tr>
@@ -419,7 +419,6 @@ tdTimeEs.className = "lang-es";
 tdTimeEs.textContent = drawing.createdAt || "";
 tr.appendChild(tdTimeEs);
 var tdActions = document.createElement("td");
-tdActions.colSpan = 2;
 var dropdown = document.createElement("div");
 dropdown.className = "services-dropdown";
 dropdown.style.position = "relative";
@@ -508,7 +507,6 @@ tdTimeEs.className = "lang-es";
 tdTimeEs.textContent = drawing.createdAt || "";
 tr.appendChild(tdTimeEs);
 var tdActions = document.createElement("td");
-tdActions.colSpan = 2;
 var dropdown = document.createElement("div");
 dropdown.className = "services-dropdown";
 dropdown.style.position = "relative";
@@ -689,37 +687,41 @@ adminSetApprovedStatus("error");
 });
 }
 function adminDeleteUser(id) {
-authFetch("/api/admin/users/" + encodeURIComponent(String(id)), {
-method: "DELETE"
-})
-.then(adminParseJsonResponse)
-.then(function (result) {
-if (result.ok) {
-adminLoadUsers();
-} else {
-alert("Failed to delete user.");
-}
-})
-.catch(function () {
-alert("Error deleting user.");
-});
-}
-function adminDeleteDrawing(id) {
-authFetch("/api/admin/drawings/" + encodeURIComponent(String(id)), {
-method: "DELETE"
-})
-.then(adminParseJsonResponse)
-.then(function (result) {
-if (result.ok) {
-adminLoadApprovedDrawings();
-} else {
-alert("Failed to delete drawing.");
-}
-})
-.catch(function () {
-alert("Error deleting drawing.");
-});
-}
+    authFetch("/api/admin/users/" + encodeURIComponent(String(id)), {
+      method: "DELETE"
+    })
+    .then(adminParseJsonResponse)
+    .then(function (result) {
+      if (result.ok) {
+        adminLoadUsers();
+      } else {
+        console.error("Delete user failed:", result);
+        alert("Failed to delete user: " + (result.body && result.body.error ? result.body.error : "Status " + result.status));
+      }
+    })
+    .catch(function (err) {
+      console.error("Delete user network error:", err);
+      alert("Error deleting user. Check console for details.");
+    });
+  }
+  function adminDeleteDrawing(id) {
+    authFetch("/api/admin/drawings/" + encodeURIComponent(String(id)), {
+      method: "DELETE"
+    })
+    .then(adminParseJsonResponse)
+    .then(function (result) {
+      if (result.ok) {
+        adminLoadApprovedDrawings();
+      } else {
+        console.error("Delete drawing failed:", result);
+        alert("Failed to delete drawing: " + (result.body && result.body.error ? result.body.error : "Status " + result.status));
+      }
+    })
+    .catch(function (err) {
+      console.error("Delete drawing network error:", err);
+      alert("Error deleting drawing. Check console for details.");
+    });
+  }
 function adminModerateDrawing(id, action) {
 var payloadAction = action === "approve" ? "approve" : "reject";
 authFetch("/api/admin/drawings/moderate", {

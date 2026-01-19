@@ -566,10 +566,10 @@ img.alt = "Mini paint drawing";
 img.className = "tw-w-full tw-rounded-md tw-border tw-border-slate-700 tw-bg-slate-900 tw-object-cover tw-aspect-square";
 wrapper.appendChild(img);
 var meta = document.createElement("div");
-meta.className = "mp-gallery-author tw-text-[10px] tw-text-slate-300";
-if (author) {
-meta.textContent = "@" + author;
-}
+      meta.className = "mp-gallery-author tw-text-[10px] tw-text-[#020617]";
+      if (author) {
+        meta.textContent = "@" + author;
+      }
 wrapper.appendChild(meta);
 wrapper.addEventListener("click", function (url, name) {
 return function () {

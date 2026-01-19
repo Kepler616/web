@@ -754,19 +754,19 @@ color: #e5e7eb;
 }
 
 html[data-lang="en"] .lang-en {
-display: initial !important;
+  display: revert !important;
 }
 
 html[data-lang="en"] .lang-es {
-display: none !important;
+  display: none !important;
 }
 
 html[data-lang="es"] .lang-en {
-display: none !important;
+  display: none !important;
 }
 
 html[data-lang="es"] .lang-es {
-  display: initial !important;
+  display: revert !important;
 }
 
 html[data-lang="en"] h2.lang-en,
