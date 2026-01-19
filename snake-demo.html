@@ -106,6 +106,27 @@ display: block;
 </tbody>
 </table>
 </div>
+<div class="table-wrapper" style="margin-top:1.5rem;">
+<h4 class="lang-en" style="margin-bottom:0.5rem;color:#e5e7eb;font-size:1rem;">Top 5 Global Scores</h4>
+<h4 class="lang-es" style="margin-bottom:0.5rem;color:#e5e7eb;font-size:1rem;">Top 5 Puntajes Globales</h4>
+<table class="table" id="snake-leaderboard-table">
+<thead>
+<tr>
+<th class="lang-en">Rank</th>
+<th class="lang-es">Rango</th>
+<th class="lang-en">User</th>
+<th class="lang-es">Usuario</th>
+<th class="lang-en">Score</th>
+<th class="lang-es">Puntaje</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3" style="text-align:center;color:#6b7280;">Loading...</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="card">
@@ -218,6 +239,7 @@ var snakeAuthStatusEs = document.getElementById("snake-auth-status-es");
 var snakeUserCell = document.getElementById("snake-user-cell");
 var snakeBestScoreCell = document.getElementById("snake-best-score-cell");
 var snakeLastScoreCell = document.getElementById("snake-last-score-cell");
+var snakeLeaderboardTable = document.getElementById("snake-leaderboard-table");
 var snakeCurrentUser = null;
 var snakeBestScore = null;
 function snakeGetCurrentLang() {
@@ -294,6 +316,58 @@ function snakeParseJsonResponse(response) {
     });
 }
 
+function snakeRenderLeaderboard(scores) {
+if (!snakeLeaderboardTable) {
+return;
+}
+var tbody = snakeLeaderboardTable.querySelector("tbody");
+if (!tbody) {
+return;
+}
+tbody.innerHTML = "";
+if (!scores || !scores.length) {
+var tr = document.createElement("tr");
+var td = document.createElement("td");
+td.colSpan = 3;
+td.style.textAlign = "center";
+td.style.color = "#6b7280";
+td.textContent = "No scores yet";
+tr.appendChild(td);
+tbody.appendChild(tr);
+return;
+}
+for (var i = 0; i < scores.length; i++) {
+var entry = scores[i];
+var tr = document.createElement("tr");
+var tdRank = document.createElement("td");
+tdRank.textContent = String(i + 1);
+tr.appendChild(tdRank);
+var tdUser = document.createElement("td");
+tdUser.textContent = entry.username || "Anonymous";
+tr.appendChild(tdUser);
+var tdScore = document.createElement("td");
+tdScore.textContent = String(entry.score);
+tdScore.style.fontWeight = "bold";
+tdScore.style.color = "#22c55e";
+tr.appendChild(tdScore);
+tbody.appendChild(tr);
+}
+}
+function snakeFetchLeaderboard() {
+authFetch("/api/snake/leaderboard", {
+method: "GET"
+})
+.then(snakeParseJsonResponse)
+.then(function (result) {
+if (result.ok && result.body && Array.isArray(result.body.scores)) {
+snakeRenderLeaderboard(result.body.scores);
+} else {
+// fallback mock if endpoint fails or doesn't exist yet
+// snakeRenderLeaderboard([]);
+}
+})
+.catch(function () {});
+}
 // Event listeners for auth
 window.addEventListener("auth:login", function(e) {
   var user = e.detail;
@@ -352,12 +426,14 @@ snakeBestScore = score;
 snakeBestScore = score;
 }
 snakeUpdateBestScoreCell();
+snakeFetchLeaderboard();
 })
 .catch(function () {});
 }
 window.onSnakeGameOver = function (finalScore) {
-  snakeSubmitScore(finalScore);
+snakeSubmitScore(finalScore);
 };
+snakeFetchLeaderboard();
 </script>
 </body>
 </html>

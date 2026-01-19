@@ -356,13 +356,17 @@ let redoStack = [];
   const MAX_HISTORY_ENTRIES = 50;
   let canvasBackgroundColor = null;
 
-  const mpAuthStatusEn = document.getElementById("mp-auth-status-en");
+const mpAuthStatusEn = document.getElementById("mp-auth-status-en");
 const mpAuthStatusEs = document.getElementById("mp-auth-status-es");
 const mpPublishButton = document.getElementById("mp-publish");
 const mpPublishStatusEn = document.getElementById("mp-publish-status-en");
 const mpPublishStatusEs = document.getElementById("mp-publish-status-es");
 const mpGallery = document.getElementById("mp-gallery");
 let mpCurrentUser = null;
+let mpCarouselFrameId = null;
+let mpModal = null;
+let mpModalImage = null;
+let mpModalAuthor = null;
 function mpGetCurrentLang() {
 const lang = document.documentElement.getAttribute("data-lang");
 if (lang === "es") {
@@ -427,6 +431,87 @@ if (mpPublishStatusEs) {
 mpPublishStatusEs.textContent = es;
 }
 }
+function mpEnsureModal() {
+if (mpModal) {
+return;
+}
+mpModal = document.createElement("div");
+mpModal.id = "mp-modal";
+mpModal.className = "mp-modal";
+mpModal.innerHTML =
+'<div class="mp-modal-dialog">' +
+'<div class="mp-modal-header">' +
+'<div class="mp-modal-author"></div>' +
+'<button type="button" class="mp-modal-close" data-mp-modal-close="true">×</button>' +
+'</div>' +
+'<img class="mp-modal-image" alt="Mini paint drawing">' +
+"</div>";
+document.body.appendChild(mpModal);
+mpModalImage = mpModal.querySelector(".mp-modal-image");
+mpModalAuthor = mpModal.querySelector(".mp-modal-author");
+var closeButton = mpModal.querySelector("[data-mp-modal-close]");
+if (closeButton) {
+closeButton.addEventListener("click", mpCloseModal);
+}
+mpModal.addEventListener("click", function (event) {
+if (event.target === mpModal) {
+mpCloseModal();
+}
+});
+}
+function mpOpenModal(url, author) {
+mpEnsureModal();
+if (mpModalImage) {
+mpModalImage.src = url;
+}
+if (mpModalAuthor) {
+if (author) {
+mpModalAuthor.textContent = "@" + author;
+} else {
+mpModalAuthor.textContent = "";
+}
+}
+if (mpModal) {
+mpModal.classList.add("visible");
+}
+}
+function mpCloseModal() {
+if (mpModal) {
+mpModal.classList.remove("visible");
+}
+}
+function mpStartCarousel() {
+if (!mpGallery) {
+return;
+}
+var track = mpGallery.querySelector(".mp-gallery-track");
+if (!track) {
+return;
+}
+if (mpCarouselFrameId !== null) {
+cancelAnimationFrame(mpCarouselFrameId);
+mpCarouselFrameId = null;
+}
+var viewportWidth = mpGallery.clientWidth;
+var trackWidth = track.scrollWidth;
+if (!viewportWidth || !trackWidth || trackWidth <= viewportWidth) {
+track.style.transform = "translateX(0)";
+return;
+}
+var position = 0;
+var direction = 1;
+function step() {
+position += 0.5 * direction;
+if (position > trackWidth - viewportWidth) {
+direction = -1;
+} else if (position < 0) {
+direction = 1;
+}
+track.style.transform = "translateX(" + -position + "px)";
+mpCarouselFrameId = requestAnimationFrame(step);
+}
+mpCarouselFrameId = requestAnimationFrame(step);
+}
 function mpParseJsonResponse(response) {
   return response
     .json()
@@ -449,6 +534,12 @@ window.addEventListener("auth:logout", function() {
   mpSetAuthStatus("loggedOut");
 });
 
+window.addEventListener("keydown", function (event) {
+if (event.key === "Escape") {
+mpCloseModal();
+}
+});
+
 function mpRenderGalleryItems(items) {
 if (!mpGallery) {
 return;
@@ -457,24 +548,37 @@ mpGallery.innerHTML = "";
 if (!items || !items.length) {
 return;
 }
+var track = document.createElement("div");
+track.className = "mp-gallery-track";
+mpGallery.appendChild(track);
 for (var i = 0; i < items.length; i++) {
 var item = items[i];
-var wrapper = document.createElement("div");
-wrapper.className = "tw-flex tw-flex-col tw-gap-1";
+if (!item || !item.url) {
+continue;
+}
+var author = item.author || "";
+var wrapper = document.createElement("button");
+wrapper.type = "button";
+wrapper.className = "mp-gallery-item tw-flex tw-flex-col tw-gap-1";
 var img = document.createElement("img");
 img.src = item.url;
 img.alt = "Mini paint drawing";
 img.className = "tw-w-full tw-rounded-md tw-border tw-border-slate-700 tw-bg-slate-900 tw-object-cover tw-aspect-square";
 wrapper.appendChild(img);
 var meta = document.createElement("div");
-meta.className = "tw-text-[10px] tw-text-slate-300";
-var author = item.author || "";
+meta.className = "mp-gallery-author tw-text-[10px] tw-text-slate-300";
 if (author) {
 meta.textContent = "@" + author;
 }
 wrapper.appendChild(meta);
-mpGallery.appendChild(wrapper);
+wrapper.addEventListener("click", function (url, name) {
+return function () {
+mpOpenModal(url, name);
+};
+}(item.url, author));
+track.appendChild(wrapper);
 }
+mpStartCarousel();
 }
 function mpFetchGallery() {
   authFetch("/api/paint/gallery", {

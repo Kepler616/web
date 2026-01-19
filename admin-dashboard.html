@@ -130,6 +130,35 @@
 </table>
 </div>
 </div>
+<div class="card">
+<div class="card-header">
+<h3 class="lang-en">Approved drawings</h3>
+<h3 class="lang-es">Dibujos aprobados</h3>
+<p class="lang-en">View and manage drawings that have been approved for the public gallery.</p>
+<p class="lang-es">Ver y gestionar los dibujos que han sido aprobados para la galería pública.</p>
+</div>
+<div class="card-body">
+<p id="admin-approved-status-en" class="lang-en"></p>
+<p id="admin-approved-status-es" class="lang-es"></p>
+<div class="table-wrapper" style="margin-top:0.75rem;">
+<table class="table" id="admin-approved-table">
+<thead>
+<tr>
+<th class="lang-en">Preview</th>
+<th class="lang-es">Vista previa</th>
+<th class="lang-en">User</th>
+<th class="lang-es">Usuario</th>
+<th class="lang-en">Date</th>
+<th class="lang-es">Fecha</th>
+<th class="lang-en">Actions</th>
+<th class="lang-es">Acciones</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -174,8 +203,11 @@ var adminUsersStatusEn = document.getElementById("admin-users-status-en");
 var adminUsersStatusEs = document.getElementById("admin-users-status-es");
 var adminDrawingsStatusEn = document.getElementById("admin-drawings-status-en");
 var adminDrawingsStatusEs = document.getElementById("admin-drawings-status-es");
+var adminApprovedStatusEn = document.getElementById("admin-approved-status-en");
+var adminApprovedStatusEs = document.getElementById("admin-approved-status-es");
 var adminUsersTable = document.getElementById("admin-users-table");
 var adminDrawingsTable = document.getElementById("admin-drawings-table");
+var adminApprovedTable = document.getElementById("admin-approved-table");
 var adminCreateUserForm = document.getElementById("admin-create-user-form");
 var adminCreateUserStatusEn = document.getElementById("admin-create-user-status-en");
 var adminCreateUserStatusEs = document.getElementById("admin-create-user-status-es");
@@ -228,6 +260,27 @@ if (adminDrawingsStatusEs) {
 adminDrawingsStatusEs.textContent = es;
 }
 }
+function adminSetApprovedStatus(key) {
+var lang = adminGetLang();
+var en = "";
+var es = "";
+if (key === "loading") {
+en = "Loading approved drawings...";
+es = "Cargando dibujos aprobados...";
+} else if (key === "error") {
+en = "Unable to load approved drawings.";
+es = "No se pudieron cargar los dibujos aprobados.";
+} else if (key === "unauthorized") {
+en = "Not authorized to view approved drawings.";
+es = "No estás autorizado para ver dibujos aprobados.";
+}
+if (adminApprovedStatusEn) {
+adminApprovedStatusEn.textContent = en;
+}
+if (adminApprovedStatusEs) {
+adminApprovedStatusEs.textContent = es;
+}
+}
 function adminSetCreateUserStatus(key) {
 var en = "";
 var es = "";
@@ -277,21 +330,27 @@ for (var i = 0; i < users.length; i++) {
 var user = users[i];
 var tr = document.createElement("tr");
 var tdUser = document.createElement("td");
+tdUser.className = "lang-en";
 tdUser.textContent = user.username || "";
 tr.appendChild(tdUser);
 var tdUserEs = document.createElement("td");
+tdUserEs.className = "lang-es";
 tdUserEs.textContent = user.username || "";
 tr.appendChild(tdUserEs);
 var tdRole = document.createElement("td");
+tdRole.className = "lang-en";
 tdRole.textContent = user.role || "";
 tr.appendChild(tdRole);
 var tdRoleEs = document.createElement("td");
+tdRoleEs.className = "lang-es";
 tdRoleEs.textContent = user.role || "";
 tr.appendChild(tdRoleEs);
 var tdLast = document.createElement("td");
+tdLast.className = "lang-en";
 tdLast.textContent = user.lastActivity || "";
 tr.appendChild(tdLast);
 var tdLastEs = document.createElement("td");
+tdLastEs.className = "lang-es";
 tdLastEs.textContent = user.lastActivity || "";
 tr.appendChild(tdLastEs);
 var tdActions = document.createElement("td");
@@ -300,11 +359,13 @@ var deleteButton = document.createElement("button");
 deleteButton.textContent = "Delete";
 deleteButton.className = "button";
 deleteButton.style.paddingInline = "0.75rem";
-deleteButton.addEventListener("click", function (id) {
+deleteButton.addEventListener("click", function (id, name) {
 return function () {
+if (confirm("Are you sure you want to delete user " + name + "?")) {
 adminDeleteUser(id);
+}
 };
-}(user.id));
+}(user.id, user.username));
 tdActions.appendChild(deleteButton);
 tr.appendChild(tdActions);
 tbody.appendChild(tr);
@@ -326,6 +387,7 @@ for (var i = 0; i < drawings.length; i++) {
 var drawing = drawings[i];
 var tr = document.createElement("tr");
 var tdPreview = document.createElement("td");
+tdPreview.className = "lang-en";
 var img = document.createElement("img");
 img.src = drawing.url;
 img.alt = "Drawing";
@@ -336,43 +398,151 @@ img.style.borderRadius = "0.5rem";
 tdPreview.appendChild(img);
 tr.appendChild(tdPreview);
 var tdPreviewEs = document.createElement("td");
-tdPreviewEs.appendChild(img.cloneNode());
+tdPreviewEs.className = "lang-es";
+var imgEs = img.cloneNode();
+tdPreviewEs.appendChild(imgEs);
 tr.appendChild(tdPreviewEs);
 var tdUser = document.createElement("td");
+tdUser.className = "lang-en";
 tdUser.textContent = drawing.user || "";
 tr.appendChild(tdUser);
 var tdUserEs = document.createElement("td");
+tdUserEs.className = "lang-es";
 tdUserEs.textContent = drawing.user || "";
 tr.appendChild(tdUserEs);
 var tdTime = document.createElement("td");
+tdTime.className = "lang-en";
 tdTime.textContent = drawing.createdAt || "";
 tr.appendChild(tdTime);
 var tdTimeEs = document.createElement("td");
+tdTimeEs.className = "lang-es";
 tdTimeEs.textContent = drawing.createdAt || "";
 tr.appendChild(tdTimeEs);
 var tdActions = document.createElement("td");
 tdActions.colSpan = 2;
-var approveButton = document.createElement("button");
-approveButton.textContent = "Approve";
-approveButton.className = "button";
-approveButton.style.marginRight = "0.5rem";
-approveButton.style.paddingInline = "0.75rem";
-approveButton.addEventListener("click", function (id) {
+var dropdown = document.createElement("div");
+dropdown.className = "services-dropdown";
+dropdown.style.position = "relative";
+dropdown.style.display = "inline-block";
+var actionBtn = document.createElement("button");
+actionBtn.className = "button";
+actionBtn.textContent = "Actions";
+dropdown.appendChild(actionBtn);
+var menu = document.createElement("div");
+menu.className = "services-dropdown-menu";
+menu.style.minWidth = "120px";
+menu.style.right = "0";
+menu.style.left = "auto";
+menu.style.top = "100%";
+var linkApprove = document.createElement("a");
+linkApprove.href = "javascript:void(0)";
+linkApprove.textContent = "Approve";
+linkApprove.style.padding = "0.5rem 1rem";
+linkApprove.onclick = function (id) {
 return function () {
 adminModerateDrawing(id, "approve");
 };
-}(drawing.id));
-var denyButton = document.createElement("button");
-denyButton.textContent = "Deny";
-denyButton.className = "button";
-denyButton.style.paddingInline = "0.75rem";
-denyButton.addEventListener("click", function (id) {
+}(drawing.id);
+menu.appendChild(linkApprove);
+var linkDeny = document.createElement("a");
+linkDeny.href = "javascript:void(0)";
+linkDeny.textContent = "Deny";
+linkDeny.style.padding = "0.5rem 1rem";
+linkDeny.onclick = function (id) {
 return function () {
 adminModerateDrawing(id, "deny");
 };
-}(drawing.id));
-tdActions.appendChild(approveButton);
-tdActions.appendChild(denyButton);
+}(drawing.id);
+menu.appendChild(linkDeny);
+dropdown.appendChild(menu);
+tdActions.appendChild(dropdown);
+tr.appendChild(tdActions);
+tbody.appendChild(tr);
+}
+}
+function adminRenderApprovedDrawingsTable(drawings) {
+if (!adminApprovedTable) {
+return;
+}
+var tbody = adminApprovedTable.querySelector("tbody");
+if (!tbody) {
+return;
+}
+tbody.innerHTML = "";
+if (!drawings || !drawings.length) {
+return;
+}
+for (var i = 0; i < drawings.length; i++) {
+var drawing = drawings[i];
+var tr = document.createElement("tr");
+var tdPreview = document.createElement("td");
+tdPreview.className = "lang-en";
+var img = document.createElement("img");
+img.src = drawing.url;
+img.alt = "Drawing";
+img.style.width = "48px";
+img.style.height = "48px";
+img.style.objectFit = "cover";
+img.style.borderRadius = "0.25rem";
+tdPreview.appendChild(img);
+tr.appendChild(tdPreview);
+var tdPreviewEs = document.createElement("td");
+tdPreviewEs.className = "lang-es";
+var imgEs = img.cloneNode();
+tdPreviewEs.appendChild(imgEs);
+tr.appendChild(tdPreviewEs);
+var tdUser = document.createElement("td");
+tdUser.className = "lang-en";
+tdUser.textContent = drawing.user || "";
+tr.appendChild(tdUser);
+var tdUserEs = document.createElement("td");
+tdUserEs.className = "lang-es";
+tdUserEs.textContent = drawing.user || "";
+tr.appendChild(tdUserEs);
+var tdTime = document.createElement("td");
+tdTime.className = "lang-en";
+tdTime.textContent = drawing.createdAt || "";
+tr.appendChild(tdTime);
+var tdTimeEs = document.createElement("td");
+tdTimeEs.className = "lang-es";
+tdTimeEs.textContent = drawing.createdAt || "";
+tr.appendChild(tdTimeEs);
+var tdActions = document.createElement("td");
+tdActions.colSpan = 2;
+var dropdown = document.createElement("div");
+dropdown.className = "services-dropdown";
+dropdown.style.position = "relative";
+dropdown.style.display = "inline-block";
+var actionBtn = document.createElement("button");
+actionBtn.className = "button";
+actionBtn.textContent = "Actions";
+dropdown.appendChild(actionBtn);
+var menu = document.createElement("div");
+menu.className = "services-dropdown-menu";
+menu.style.minWidth = "120px";
+menu.style.right = "0";
+menu.style.left = "auto";
+menu.style.top = "100%";
+var linkDownload = document.createElement("a");
+linkDownload.href = drawing.url;
+linkDownload.download = "drawing-" + drawing.id + ".png";
+linkDownload.textContent = "Download";
+linkDownload.style.padding = "0.5rem 1rem";
+menu.appendChild(linkDownload);
+var linkDelete = document.createElement("a");
+linkDelete.href = "javascript:void(0)";
+linkDelete.textContent = "Delete";
+linkDelete.style.padding = "0.5rem 1rem";
+linkDelete.onclick = function (id) {
+return function () {
+if (confirm("Are you sure you want to delete this drawing?")) {
+adminDeleteDrawing(id);
+}
+};
+}(drawing.id);
+menu.appendChild(linkDelete);
+dropdown.appendChild(menu);
+tdActions.appendChild(dropdown);
 tr.appendChild(tdActions);
 tbody.appendChild(tr);
 }
@@ -468,22 +638,93 @@ adminRenderDrawingsTable(drawings);
 adminSetDrawingsStatus("error");
 });
 }
-function adminDeleteUser(id) {
-  authFetch("/api/admin/users/" + encodeURIComponent(String(id)), {
-    method: "DELETE"
-  })
-.then(adminParseJsonResponse)
-.then(function () {
-adminLoadUsers();
+function adminLoadApprovedDrawings() {
+adminSetApprovedStatus("loading");
+authFetch("/api/admin/drawings/approved", {
+method: "GET"
 })
-.catch(function () {});
+.then(adminParseJsonResponse)
+.then(function (result) {
+if (result.status === 401 || result.status === 403) {
+adminSetApprovedStatus("unauthorized");
+return;
+}
+if (!result.ok) {
+adminSetApprovedStatus("error");
+return;
+}
+adminSetApprovedStatus("idle");
+if (result.body && Array.isArray(result.body.drawings)) {
+var drawings = [];
+for (var i = 0; i < result.body.drawings.length; i++) {
+var row = result.body.drawings[i];
+var url = "";
+try {
+var parsed = JSON.parse(row.data);
+if (parsed && typeof parsed.imageDataUrl === "string") {
+url = parsed.imageDataUrl;
+}
+} catch (error) {
+url = "";
+}
+var created = "";
+if (typeof row.created_at === "number") {
+var d = new Date(row.created_at * 1000);
+created = d.toISOString();
+} else if (row.created_at) {
+created = String(row.created_at);
+}
+drawings.push({
+id: row.id,
+url: url,
+user: row.username,
+createdAt: created
+});
+}
+adminRenderApprovedDrawingsTable(drawings);
+}
+})
+.catch(function () {
+adminSetApprovedStatus("error");
+});
+}
+function adminDeleteUser(id) {
+authFetch("/api/admin/users/" + encodeURIComponent(String(id)), {
+method: "DELETE"
+})
+.then(adminParseJsonResponse)
+.then(function (result) {
+if (result.ok) {
+adminLoadUsers();
+} else {
+alert("Failed to delete user.");
+}
+})
+.catch(function () {
+alert("Error deleting user.");
+});
+}
+function adminDeleteDrawing(id) {
+authFetch("/api/admin/drawings/" + encodeURIComponent(String(id)), {
+method: "DELETE"
+})
+.then(adminParseJsonResponse)
+.then(function (result) {
+if (result.ok) {
+adminLoadApprovedDrawings();
+} else {
+alert("Failed to delete drawing.");
+}
+})
+.catch(function () {
+alert("Error deleting drawing.");
+});
 }
 function adminModerateDrawing(id, action) {
-var pathAction = action === "approve" ? "approve" : "deny";
-  var payloadAction = action === "approve" ? "approve" : "reject";
-  authFetch("/api/admin/drawings/moderate", {
-    method: "POST",
-    headers: {
+var payloadAction = action === "approve" ? "approve" : "reject";
+authFetch("/api/admin/drawings/moderate", {
+method: "POST",
+headers: {
 "content-type": "application/json"
 },
 body: JSON.stringify({ id: id, action: payloadAction })
@@ -491,6 +732,9 @@ body: JSON.stringify({ id: id, action: payloadAction })
 .then(adminParseJsonResponse)
 .then(function () {
 adminLoadDrawings();
+if (action === "approve") {
+adminLoadApprovedDrawings();
+}
 })
 .catch(function () {});
 }
@@ -534,6 +778,7 @@ adminSetCreateUserStatus("error");
 }
 adminLoadUsers();
 adminLoadDrawings();
+adminLoadApprovedDrawings();
 </script>
 </body>
 </html>
