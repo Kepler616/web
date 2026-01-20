@@ -12,19 +12,12 @@
 <link rel="icon" href="../assets/icons/favicon_io/favicon.ico">
 </head>
 <body>
-<header class="site-header">
-<div class="container header-content">
-<div class="header-main">
-<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
-<div>
-<h1 class="name">KENDALL MENDOZA</h1>
-<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
-<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
-<p class="location lang-en">Remote | Colombia</p>
-<p class="location lang-es">Remoto | Colombia</p>
-</div>
-</div>
-<div class="header-bottom">
+<header class="site-header" style="padding: 1rem 0;">
+<div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+<div style="display: flex; align-items: center; gap: 1rem;">
+<a href="../index.html">
+<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo" style="width: 50px; height: 50px; margin: 0;">
+</a>
 <nav class="main-nav">
 <a href="../index.html#summary" class="lang-en">Home</a>
 <a href="../index.html#summary" class="lang-es">Inicio</a>
@@ -72,26 +65,45 @@
 <a href="../index.html#contact" class="lang-es">Contacto</a>
 <a href="../about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
 <a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="live-demos.html" class="lang-en nav-demo">Demo</a>
+<a href="live-demos.html" class="lang-es nav-demo">Demo</a>
 <a href="../login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
 <a href="../login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
-<select id="language-select" class="language-select">
+<select id="language-select" class="language-select" style="transform: translateY(1.5px);">
 <option value="en" selected>English</option>
 <option value="es">Español</option>
 </select>
 </nav>
-
 </div>
 </div>
 </header>
-<main>
-<section class="section">
-<div class="container">
-<h2 class="lang-en">SEO & Technical Content Systems</h2>
-<h2 class="lang-es">Sistemas de SEO y Contenido Técnico</h2>
+<main style="padding-top: 0;">
+<section id="hero-section" class="section" style="position: relative; padding: 4rem 0;">
+<div id="hero-background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('../assets/icons/service-seo.jpg'); background-attachment: fixed; background-size: cover; background-position: center; z-index: 0;"></div>
+<div class="container" id="hero-content-container" style="position: relative; z-index: 1; background-color: rgba(11, 17, 32, 0.8); padding: 2rem; border-radius: 1rem; backdrop-filter: blur(4px);">
+<div id="hero-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+<div id="hero-titles">
+<h2 class="lang-en" style="margin: 0;">SEO & Technical Content Systems</h2>
+<h2 class="lang-es" style="margin: 0;">Sistemas de SEO y Contenido Técnico</h2>
+</div>
+<div id="hero-mini-contact" style="opacity: 0; pointer-events: none;">
+<a href="../index.html#contact" class="button lang-en" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Contact me</a>
+<a href="../index.html#contact" class="button lang-es" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Contáctame</a>
+</div>
+</div>
+
+<div id="hero-body" style="overflow: hidden;">
+<div style="padding-top: 1rem; padding-bottom: 0.5rem;">
 <p class="lang-en">SEO & Technical Content Systems is a strategic service designed to build scalable, search-optimized content infrastructures that go beyond individual pages. Instead of treating SEO as isolated keywords or one-off articles, this service focuses on creating systems that consistently produce high quality content aligned with search intent, technical best practices, and business goals.</p>
 <p class="lang-es">SEO & Technical Content Systems es un servicio estratégico diseñado para construir infraestructuras de contenido escalables y optimizadas para búsqueda que van más allá de páginas individuales. En lugar de tratar el SEO como palabras clave aisladas o artículos sueltos, este servicio se enfoca en crear sistemas que produzcan de forma constante contenido de alta calidad alineado con la intención de búsqueda, las mejores prácticas técnicas y los objetivos de negocio.</p>
 <p class="lang-en">It combines SEO strategy, technical structure, and content workflows to ensure long term visibility, efficiency, and growth.</p>
 <p class="lang-es">Combina estrategia de SEO, estructura técnica y flujos de contenido para asegurar visibilidad, eficiencia y crecimiento a largo plazo.</p>
+<div id="hero-original-button" style="margin-top: 1.5rem;">
+<a href="../index.html#contact" class="button lang-en">Contact me</a>
+<a href="../index.html#contact" class="button lang-es">Contáctame</a>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section class="section section-alt">
@@ -180,5 +192,6 @@ const languageSelect = document.getElementById("language-select");
     }
 </script>
 <script src="../assets/js/auth.js"></script>
+<script src="../assets/js/hero-scroll.js"></script>
 </body>
 </html>

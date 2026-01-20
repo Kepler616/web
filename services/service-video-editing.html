@@ -12,19 +12,12 @@
 <link rel="icon" href="../assets/icons/favicon_io/favicon.ico">
 </head>
 <body>
-<header class="site-header">
-<div class="container header-content">
-<div class="header-main">
-<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
-<div>
-<h1 class="name">KENDALL MENDOZA</h1>
-<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
-<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
-<p class="location lang-en">Remote | Colombia</p>
-<p class="location lang-es">Remoto | Colombia</p>
-</div>
-</div>
-<div class="header-bottom">
+<header class="site-header" style="padding: 1rem 0;">
+<div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+<div style="display: flex; align-items: center; gap: 1rem;">
+<a href="../index.html">
+<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo" style="width: 50px; height: 50px; margin: 0;">
+</a>
 <nav class="main-nav">
 <a href="../index.html#summary" class="lang-en">Home</a>
 <a href="../index.html#summary" class="lang-es">Inicio</a>
@@ -72,26 +65,45 @@
 <a href="../index.html#contact" class="lang-es">Contacto</a>
 <a href="../about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
 <a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="live-demos.html" class="lang-en nav-demo">Demo</a>
+<a href="live-demos.html" class="lang-es nav-demo">Demo</a>
 <a href="../login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
 <a href="../login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
-<select id="language-select" class="language-select">
+<select id="language-select" class="language-select" style="transform: translateY(1.5px);">
 <option value="en" selected>English</option>
 <option value="es">Español</option>
 </select>
 </nav>
-
 </div>
 </div>
 </header>
-<main>
-<section class="section">
-<div class="container">
-<h2 class="lang-en">Video editing</h2>
-<h2 class="lang-es">Edición de video</h2>
+<main style="padding-top: 0;">
+<section id="hero-section" class="section" style="position: relative; padding: 4rem 0;">
+<div id="hero-background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('../assets/icons/video-editing.jpg'); background-attachment: fixed; background-size: cover; background-position: center; z-index: 0;"></div>
+<div class="container" id="hero-content-container" style="position: relative; z-index: 1; background-color: rgba(11, 17, 32, 0.8); padding: 2rem; border-radius: 1rem; backdrop-filter: blur(4px);">
+<div id="hero-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+<div id="hero-titles">
+<h2 class="lang-en" style="margin: 0;">Video Editing</h2>
+<h2 class="lang-es" style="margin: 0;">Edición de video</h2>
+</div>
+<div id="hero-mini-contact" style="opacity: 0; pointer-events: none;">
+<a href="../index.html#contact" class="button lang-en" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Contact me</a>
+<a href="../index.html#contact" class="button lang-es" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Contáctame</a>
+</div>
+</div>
+
+<div id="hero-body" style="overflow: hidden;">
+<div style="padding-top: 1rem; padding-bottom: 0.5rem;">
 <p class="lang-en">Video Editing is a service focused on turning raw footage into clear, engaging, and purpose driven visual content. The goal is not just to cut clips together, but to craft videos that communicate a message, maintain attention, and align with platform specific best practices.</p>
 <p class="lang-es">Video Editing es un servicio enfocado en transformar material en bruto en contenido visual claro, atractivo y orientado a un objetivo. La meta no es solo unir clips, sino crear videos que comuniquen un mensaje, mantengan la atención y se alineen con las mejores prácticas de cada plataforma.</p>
 <p class="lang-en">Whether the content is educational, promotional, or entertainment based, this service ensures every edit serves a clear objective.</p>
 <p class="lang-es">Ya sea contenido educativo, promocional o de entretenimiento, este servicio se asegura de que cada edición responda a un objetivo claro.</p>
+<div id="hero-original-button" style="margin-top: 1.5rem;">
+<a href="../index.html#contact" class="button lang-en">Contact me</a>
+<a href="../index.html#contact" class="button lang-es">Contáctame</a>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section class="section section-alt">
@@ -142,8 +154,8 @@
 <li>Email: <a href="mailto:kendall.mendoza98@gmail.com">kendall.mendoza98@gmail.com</a></li>
 </ul>
 <div class="cta-buttons">
-<a href="index.html#contact" class="button lang-en">Contact me</a>
-<a href="index.html#contact" class="button lang-es">Contáctame</a>
+<a href="../index.html#contact" class="button lang-en">Contact me</a>
+<a href="../index.html#contact" class="button lang-es">Contáctame</a>
 <a href="https://www.instagram.com/francoimmigration/?hl=es-la#" class="button lang-en" target="_blank" rel="noopener noreferrer">See Instagram work</a>
 <a href="https://www.instagram.com/francoimmigration/?hl=es-la#" class="button lang-es" target="_blank" rel="noopener noreferrer">Ver trabajo en Instagram</a>
 </div>
@@ -155,12 +167,12 @@
 <p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
 <p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
 <nav class="footer-nav">
-<a href="index.html#summary" class="lang-en">Home</a>
-<a href="index.html#summary" class="lang-es">Inicio</a>
-<a href="index.html#services" class="lang-en">Services</a>
-<a href="index.html#services" class="lang-es">Servicios</a>
-<a href="about.html" class="lang-en">About me</a>
-<a href="about.html" class="lang-es">Sobre mí</a>
+<a href="../index.html#summary" class="lang-en">Home</a>
+<a href="../index.html#summary" class="lang-es">Inicio</a>
+<a href="../index.html#services" class="lang-en">Services</a>
+<a href="../index.html#services" class="lang-es">Servicios</a>
+<a href="../about.html" class="lang-en">About me</a>
+<a href="../about.html" class="lang-es">Sobre mí</a>
 </nav>
 </div>
 </footer>
@@ -186,5 +198,6 @@ const languageSelect = document.getElementById("language-select");
     }
 </script>
 <script src="../assets/js/auth.js"></script>
+<script src="../assets/js/hero-scroll.js"></script>
 </body>
 </html>

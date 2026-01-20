@@ -598,7 +598,7 @@ padding-left: 1rem;
 .policy-content h2,
 .policy-content h3,
 .policy-content h4 {
-  color: #22c55e !important;
+  color: #00D7FF !important;
 }
 
 .policy-content p,
@@ -611,8 +611,6 @@ padding-left: 1rem;
   border: 0;
   border-top: 1px solid #1f2937;
   margin: 2rem 0;
-}
-  color: #22c55e;
 }
 
 #contact .simple-list {

@@ -12,19 +12,12 @@
 <link rel="icon" href="../assets/icons/favicon_io/favicon.ico">
 </head>
 <body>
-<header class="site-header">
-<div class="container header-content">
-<div class="header-main">
-<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
-<div>
-<h1 class="name">KENDALL MENDOZA</h1>
-<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
-<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
-<p class="location lang-en">Remote | Colombia</p>
-<p class="location lang-es">Remoto | Colombia</p>
-</div>
-</div>
-<div class="header-bottom">
+<header class="site-header" style="padding: 1rem 0;">
+<div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+<div style="display: flex; align-items: center; gap: 1rem;">
+<a href="../index.html">
+<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo" style="width: 50px; height: 50px; margin: 0;">
+</a>
 <nav class="main-nav">
 <a href="../index.html#summary" class="lang-en">Home</a>
 <a href="../index.html#summary" class="lang-es">Inicio</a>
@@ -72,29 +65,50 @@
 <a href="../index.html#contact" class="lang-es">Contacto</a>
 <a href="../about.html" class="lang-en" target="_blank" rel="noopener noreferrer">About me</a>
 <a href="../about.html" class="lang-es" target="_blank" rel="noopener noreferrer">Sobre mí</a>
+<a href="live-demos.html" class="lang-en nav-demo">Demo</a>
+<a href="live-demos.html" class="lang-es nav-demo">Demo</a>
 <a href="../login.html" class="lang-en nav-demo" data-auth-nav="true"><span class="nav-demo-label">Create account</span><span class="demo-badge">Demo</span></a>
 <a href="../login.html" class="lang-es nav-demo" data-auth-nav="true"><span class="nav-demo-label">Crear cuenta</span><span class="demo-badge">Demo</span></a>
-<select id="language-select" class="language-select">
+<select id="language-select" class="language-select" style="transform: translateY(1.5px);">
 <option value="en" selected>English</option>
 <option value="es">Español</option>
 </select>
 </nav>
-
 </div>
 </div>
 </header>
-<main>
-<section class="section">
-<div class="container">
-<h2 class="lang-en">Analytics, Data & Performance Optimization</h2>
-<h2 class="lang-es">Analítica, Datos y Optimización de Rendimiento</h2>
-<p class="lang-en">Analytics, Data &amp; Performance Optimization is a service focused on transforming raw data into clear insights that drive better decisions. Instead of relying on assumptions, this service uses measurable performance indicators to understand how users interact with your website and where improvements will have the greatest impact.</p>
-<p class="lang-es">Analytics, Data &amp; Performance Optimization es un servicio enfocado en transformar datos en bruto en insights claros que impulsan mejores decisiones. En lugar de depender de suposiciones, este servicio utiliza indicadores de rendimiento medibles para entender cómo interactúan los usuarios con tu sitio y dónde tendrán mayor impacto las mejoras.</p>
-<p class="lang-en">It connects analytics, behavior tracking, and performance metrics into a unified system that supports continuous optimization.</p>
-<p class="lang-es">Conecta analítica, seguimiento de comportamiento y métricas de rendimiento en un sistema unificado que soporta la optimización continua.</p>
-</div>
-</section>
-<section class="section section-alt">
+<main style="padding-top: 0;">
+<section id="hero-section" class="section" style="position: relative; padding: 4rem 0;">
+      <div id="hero-background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('../assets/icons/analytics-data.jpg'); background-attachment: fixed; background-size: cover; background-position: center; z-index: 0;"></div>
+      <div class="container" id="hero-content-container" style="position: relative; z-index: 1; background-color: rgba(11, 17, 32, 0.8); padding: 2rem; border-radius: 1rem; backdrop-filter: blur(4px);">
+        <div id="hero-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <div id="hero-titles">
+            <h2 class="lang-en" style="margin: 0;">Analytics, Data & Performance Optimization</h2>
+            <h2 class="lang-es" style="margin: 0;">Analítica, Datos y Optimización de Rendimiento</h2>
+          </div>
+          <div id="hero-mini-contact" style="opacity: 0; pointer-events: none;">
+            <a href="../index.html#contact" class="button lang-en" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Contact me</a>
+            <a href="../index.html#contact" class="button lang-es" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Contáctame</a>
+          </div>
+        </div>
+
+        <div id="hero-body" style="overflow: hidden;">
+          <div style="padding-top: 1rem; padding-bottom: 0.5rem;">
+            <p class="lang-en">Analytics, Data & Performance Optimization is a service focused on transforming raw data into clear insights that drive better decisions. Instead of relying on assumptions, this service uses measurable performance indicators to understand how users interact with your website and where improvements will have the greatest impact.</p>
+            <p class="lang-es">Analytics, Data & Performance Optimization es un servicio enfocado en transformar datos en bruto en insights claros que impulsan mejores decisiones. En lugar de depender de suposiciones, este servicio utiliza indicadores de rendimiento medibles para entender cómo interactúan los usuarios con tu sitio y dónde tendrán mayor impacto las mejoras.</p>
+            <p class="lang-en">It connects analytics, behavior tracking, and performance metrics into a unified system that supports continuous optimization.</p>
+            <p class="lang-es">Conecta analítica, seguimiento de comportamiento y métricas de rendimiento en un sistema unificado que soporta la optimización continua.</p>
+            <div id="hero-original-button" style="margin-top: 1.5rem;">
+              <a href="../index.html#contact" class="button lang-en">Contact me</a>
+              <a href="../index.html#contact" class="button lang-es">Contáctame</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hero-body" style="position: relative; z-index: 2; background-color: var(--bg-color); padding-bottom: 0.5rem;">
+      <section class="section section-alt">
 <div class="container">
 <h3 class="lang-en">Key features</h3>
 <h3 class="lang-es">Características</h3>
@@ -143,25 +157,27 @@
 <li class="lang-es">Teléfono: +57 316 657 3216 | +57 302 743 9538</li>
 <li>Email: <a href="mailto:kendall.mendoza98@gmail.com">kendall.mendoza98@gmail.com</a></li>
 </ul>
-<a href="index.html#contact" class="button lang-en">Contact me</a>
-<a href="index.html#contact" class="button lang-es">Contáctame</a>
+<a href="../index.html#contact" class="button lang-en">Contact me</a>
+<a href="../index.html#contact" class="button lang-es">Contáctame</a>
 </div>
 </section>
+</div>
 </main>
 <footer class="site-footer">
 <div class="container footer-content">
 <p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
 <p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
 <nav class="footer-nav">
-<a href="index.html#summary" class="lang-en">Home</a>
-<a href="index.html#summary" class="lang-es">Inicio</a>
-<a href="index.html#services" class="lang-en">Services</a>
-<a href="index.html#services" class="lang-es">Servicios</a>
-<a href="about.html" class="lang-en">About me</a>
-<a href="about.html" class="lang-es">Sobre mí</a>
+<a href="../index.html#summary" class="lang-en">Home</a>
+<a href="../index.html#summary" class="lang-es">Inicio</a>
+<a href="../index.html#services" class="lang-en">Services</a>
+<a href="../index.html#services" class="lang-es">Servicios</a>
+<a href="../about.html" class="lang-en">About me</a>
+<a href="../about.html" class="lang-es">Sobre mí</a>
 </nav>
 </div>
 </footer>
+<script src="../assets/js/hero-scroll.js"></script>
 <script>
 const yearSpan = document.getElementById("year");
 if (yearSpan) {
