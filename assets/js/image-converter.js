@@ -22,8 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('format', format);
 
             try {
-                // Use the production Render URL
+                // Production Render URL
                 const API_URL = 'https://python-backend-wtq1.onrender.com/convert';
+                // Localhost for testing: 'http://127.0.0.1:5000/convert'
                 
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = downloadUrl;
-                a.download = `converted.${format.toLowerCase()}`; 
+                a.download = `km-free-converter.${format.toLowerCase()}`; 
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
