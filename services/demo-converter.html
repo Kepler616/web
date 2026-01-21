@@ -39,17 +39,16 @@
 </div>
 </header>
 <main>
-<section class="section">
+<section class="section" style="padding-top: 0.5rem;">
 <div class="container">
-<h2 class="lang-en">Image Format Converter</h2>
-<h2 class="lang-es">Conversor de Formatos de Imagen</h2>
-<p class="lang-en">A Python-powered tool to convert images between formats (JPG, PNG, WEBP).</p>
-<p class="lang-es">Una herramienta impulsada por Python para convertir imágenes entre formatos (JPG, PNG, WEBP).</p>
+<h2 class="lang-en" style="margin-bottom: 0.5rem;">Image Format Converter</h2>
+<h2 class="lang-es" style="margin-bottom: 0.5rem;">Conversor de Formatos de Imagen</h2>
+<p class="lang-en">A versatile Python image conversion tool designed to handle modern and legacy formats including JPG, PNG, WEBP, AVIF, SVG (embedded), BMP, and TIFF.<br>By using this tool, you agree to the <a href="../terms-of-service.html" style="text-decoration: underline;">Fair use policy</a>.</p>
+<p class="lang-es">Una herramienta versátil de conversión de imágenes en Python diseñada para manejar formatos modernos y heredados, incluyendo JPG, PNG, WEBP, AVIF, SVG (incrustado), BMP y TIFF.<br>Al usar esta herramienta, aceptas la <a href="../terms-of-service.html" style="text-decoration: underline;">Política de Uso Justo</a>.</p>
 
 <div class="demo-card" style="margin-top: 2rem; max-width: 600px;">
     <div class="demo-header">
-        <h3>Converter Interface</h3>
-        <span class="demo-tag python">Python Backend</span>
+        <img src="../assets/icons/Python-logo.png" alt="Python Backend" style="height: 40px; width: auto;">
     </div>
     <div class="demo-content">
         <p class="lang-en">Upload an image and select the target format.</p>
@@ -62,6 +61,8 @@
                 <option value="JPEG">JPG (JPEG)</option>
                 <option value="PNG">PNG</option>
                 <option value="WEBP">WEBP</option>
+                <option value="AVIF">AVIF</option>
+                <option value="SVG">SVG (Embedded)</option>
                 <option value="BMP">BMP</option>
                 <option value="TIFF">TIFF</option>
             </select>
@@ -73,12 +74,63 @@
         <div class="tech-note">
             <small>
                 <strong>Technical Note:</strong><br>
-                <span class="lang-en">Processing is done using the Pillow library on a Flask server.</span>
-                <span class="lang-es">El procesamiento se realiza usando la librería Pillow en un servidor Flask.</span>
+                <span class="lang-en">Processing is done using the Pillow library on a Flask server. Since the backend is hosted on Render, the first conversion might take about 50 seconds while the server "wakes up". Subsequent requests will be fast.</span>
+                <span class="lang-es">El procesamiento se realiza usando la librería Pillow en un servidor Flask. Como el backend está en Render, la primera conversión podría tardar unos 50 segundos mientras el servidor "despierta". Las siguientes serán rápidas.</span>
             </small>
         </div>
     </div>
 </div>
+
+<section class="section section-alt">
+    <div class="container">
+        <h3 class="lang-en">Project Overview</h3>
+        <h3 class="lang-es">Descripción del Proyecto</h3>
+        <p class="lang-en">This application demonstrates a full-stack integration between a static frontend and a Python Flask backend. It leverages the Pillow library to perform server-side image processing, enabling users to convert files between various formats efficiently. The system handles file uploads, format validation, and stream-based responses to ensure fast delivery without permanent storage.</p>
+        <p class="lang-es">Esta aplicación demuestra una integración full-stack entre un frontend estático y un backend en Python Flask. Utiliza la librería Pillow para realizar procesamiento de imágenes en el servidor, permitiendo a los usuarios convertir archivos entre varios formatos de manera eficiente. El sistema maneja subidas de archivos, validación de formatos y respuestas basadas en streams para asegurar una entrega rápida sin almacenamiento permanente.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h3 class="lang-en">Tools Used</h3>
+        <h3 class="lang-es">Herramientas Utilizadas</h3>
+        <div class="tools-logos">
+            <img src="../assets/icons/Python-logo.png" alt="Python logo">
+            <img src="../assets/icons/render-icon.png" alt="Render logo">
+            <img src="../assets/icons/logos/software development/Visual_Studio_Code_1.35_icon.svg.png" alt="VS Code logo">
+            <img src="../assets/icons/logos/software development/git-icon-logo.png" alt="Git logo">
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <h3 class="lang-en">Technical Challenges</h3>
+        <h3 class="lang-es">Desafíos Técnicos</h3>
+        <div class="service-block">
+            <p class="lang-en"><strong>Format Compatibility</strong> Implementing support for modern formats like AVIF and SVG alongside legacy ones required managing specific library dependencies and plugin integrations.</p>
+            <p class="lang-es"><strong>Compatibilidad de Formatos</strong> Implementar soporte para formatos modernos como AVIF y SVG junto con los tradicionales requirió gestionar dependencias específicas de librerías e integraciones de plugins.</p>
+        </div>
+        <div class="service-block">
+            <p class="lang-en"><strong>Serverless Deployment</strong> Optimizing the application for a serverless environment (Render) involved handling cold starts and ensuring stateless operation to maintain reliability.</p>
+            <p class="lang-es"><strong>Despliegue Serverless</strong> Optimizar la aplicación para un entorno serverless (Render) implicó manejar arranques en frío y asegurar una operación sin estado para mantener la confiabilidad.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h3 class="lang-en">Contact</h3>
+        <h3 class="lang-es">Contacto</h3>
+        <ul class="simple-list">
+            <li class="lang-en">Phone: +57 316 657 3216 | +57 302 743 9538</li>
+            <li class="lang-es">Teléfono: +57 316 657 3216 | +57 302 743 9538</li>
+            <li>Email: <a href="mailto:kendall.mendoza98@gmail.com">kendall.mendoza98@gmail.com</a></li>
+        </ul>
+        <a href="../index.html#contact" class="button lang-en">Contact me</a>
+        <a href="../index.html#contact" class="button lang-es">Contáctame</a>
+    </div>
+</section>
 
 </div>
 </section>

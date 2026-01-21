@@ -230,22 +230,25 @@ Cuando inicias sesión en el demo de cuentas, puedes publicar una captura de tu 
 </div>
 </div>
 </div>
-      <div class="tw-bg-slate-950 tw-border tw-border-slate-800 tw-rounded-xl tw-p-3 tw-flex tw-flex-col tw-gap-3 tw-mt-3">
-        <h3 class="tw-text-slate-100 tw-text-sm tw-font-semibold">
-          <span class="lang-en">Project overview</span>
-          <span class="lang-es">Project overview</span>
-        </h3>
-        <p class="tw-text-[11px] tw-text-slate-300 lang-en">
-          This mini paint explores how to combine multiple brush engines, a background-aware eraser, and a flood fill tool on top of the HTML5 Canvas API, keeping the implementation in vanilla JavaScript with no UI framework.
-        </p>
-        <p class="tw-text-[11px] tw-text-slate-300 lang-es">
-          Este mini paint explora cómo combinar varios motores de brocha, un borrador que entiende el color de fondo y una herramienta de relleno sobre la API de Canvas de HTML5, manteniendo la implementación en JavaScript puro sin framework de UI.
-        </p>
-        <h4 class="tw-text-slate-100 tw-text-xs tw-font-semibold">
-          <span class="lang-en">Tech and tools</span>
-          <span class="lang-es">Tecnologías y herramientas</span>
-        </h4>
-        <div class="tools-logos">
+
+</div>
+</div>
+<section class="section section-alt">
+  <div class="container">
+    <div class="tw-bg-slate-950 tw-border tw-border-slate-800 tw-rounded-xl tw-p-4 tw-flex tw-flex-col tw-gap-4">
+      <h2 class="tw-text-slate-100 tw-text-lg tw-font-semibold">
+        <span class="lang-en">Project Overview</span>
+        <span class="lang-es">Project Overview</span>
+      </h2>
+      <div class="tw-text-sm tw-text-slate-300">
+        <p class="lang-en">This mini paint explores how to combine multiple brush engines, a background-aware eraser, and a flood fill tool on top of the HTML5 Canvas API, keeping the implementation in vanilla JavaScript with no UI framework.</p>
+        <p class="lang-es">Este mini paint explora cómo combinar varios motores de brocha, un borrador que entiende el color de fondo y una herramienta de relleno sobre la API de Canvas de HTML5, manteniendo la implementación en JavaScript puro sin framework de UI.</p>
+      </div>
+      <h3 class="tw-text-slate-100 tw-text-base tw-font-semibold">
+        <span class="lang-en">Tools</span>
+        <span class="lang-es">Herramientas</span>
+      </h3>
+      <div class="tools-logos">
           <img class="lang-en" src="../assets/icons/Typescript.png" alt="TypeScript-like structured JavaScript">
           <img class="lang-es" src="../assets/icons/Typescript.png" alt="JavaScript estructurado inspirado en TypeScript">
           <img class="lang-en" src="../assets/icons/Visual_Studio_Code_1.35_icon.svg.png" alt="Visual Studio Code">
@@ -254,12 +257,12 @@ Cuando inicias sesión en el demo de cuentas, puedes publicar una captura de tu 
           <img class="lang-es" src="../assets/icons/git-icon-logo.png" alt="Git para control de versiones">
           <img class="lang-en" src="../assets/icons/github.png" alt="GitHub Pages">
           <img class="lang-es" src="../assets/icons/github.png" alt="GitHub Pages para hosting del demo">
-        </div>
-        <h4 class="tw-text-slate-100 tw-text-xs tw-font-semibold">
-          <span class="lang-en">Challenges and how they were solved</span>
-          <span class="lang-es">Retos y cómo se resolvieron</span>
-        </h4>
-        <ul class="simple-list tw-text-[11px] tw-text-slate-300">
+      </div>
+      <h3 class="tw-text-slate-100 tw-text-base tw-font-semibold">
+        <span class="lang-en">Challenges and how they were solved</span>
+        <span class="lang-es">Retos y cómo se resolvieron</span>
+      </h3>
+      <ul class="simple-list tw-text-sm tw-text-slate-300">
           <li class="lang-en"><strong>Smart Background Detection</strong><br>The flood fill algorithm goes beyond just changing pixels: it analyzes the filled area's coverage and edge contact to infer if the global background has changed. This automatically updates the eraser tool to paint with the new background color, keeping the tools context-aware without manual adjustment.</li>
           <li class="lang-es"><strong>Detección inteligente de fondo</strong><br>El algoritmo de relleno va más allá de cambiar píxeles: analiza la cobertura del área y el contacto con los bordes para inferir si el fondo global cambió. Esto actualiza automáticamente el borrador para pintar con el nuevo color de fondo, manteniendo las herramientas conscientes del contexto sin ajustes manuales.</li>
           <li class="lang-en"><strong>Context-aware Tooling</strong><br>Tools like Fill are designed for flow. The application remembers your previous brush state, so after performing a one-off action like filling the canvas, it automatically switches you back to your drawing tool, reducing friction and click fatigue.</li>
@@ -268,10 +271,10 @@ Cuando inicias sesión en el demo de cuentas, puedes publicar una captura de tu 
           <li class="lang-es"><strong>Coordinar varios motores de brocha</strong><br>Cada brocha usa una estrategia de renderizado distinta (trazos sólidos, gradientes, partículas, cintas). Helpers compartidos para distancia, interpolación y conversión de color mantienen el código compacto y permiten seguir agregando brochas.</li>
           <li class="lang-en"><strong>Undo/redo with image snapshots</strong><br>Because the canvas does not expose individual strokes, history is implemented with capped image snapshots. This keeps undo/redo responsive while still allowing several steps in both directions.</li>
           <li class="lang-es"><strong>Deshacer/rehacer con snapshots de imagen</strong><br>Como el canvas no expone trazos individuales, el historial se implementa con snapshots de imagen limitados. Esto mantiene deshacer/rehacer ágil y permite varios pasos en ambas direcciones.</li>
-        </ul>
-      </div>
-</div>
-</div>
+      </ul>
+    </div>
+  </div>
+</section>
 <section id="contact" class="section section-alt">
 <div class="container">
 <h2 class="lang-en">Contact</h2>

@@ -66,12 +66,19 @@
 </section>
 <section class="section section-alt">
 <div class="container">
-<h2 class="lang-en">Project Overview</h2>
-<h2 class="lang-es">Project Overview</h2>
+<div class="tw-bg-slate-950 tw-border tw-border-slate-800 tw-rounded-xl tw-p-4 tw-flex tw-flex-col tw-gap-4">
+<h2 class="tw-text-slate-100 tw-text-lg tw-font-semibold">
+<span class="lang-en">Project Overview</span>
+<span class="lang-es">Project Overview</span>
+</h2>
+<div class="tw-text-sm tw-text-slate-300">
 <p class="lang-en">This demo showcases a small end-to-end system that reads normalized crypto market data from a Cloudflare Worker and renders a simple React-based dashboard with a 10 second refresh cadence.</p>
 <p class="lang-es">Este demo muestra un sistema pequeño de punta a punta que lee datos de mercado cripto normalizados desde un Cloudflare Worker y renderiza un dashboard sencillo en React con una cadencia de actualización de 10 segundos.</p>
-<h3 class="lang-en">Tools</h3>
-<h3 class="lang-es">Herramientas</h3>
+</div>
+<h3 class="tw-text-slate-100 tw-text-base tw-font-semibold">
+<span class="lang-en">Tools</span>
+<span class="lang-es">Herramientas</span>
+</h3>
 <div class="tools-logos">
 <img class="lang-en" src="../assets/icons/cloudflare workers.png" alt="Cloudflare Workers">
 <img class="lang-es" src="../assets/icons/cloudflare workers.png" alt="Cloudflare Workers para backend y edge">
@@ -86,9 +93,11 @@
 <img class="lang-en" src="../assets/icons/github.png" alt="GitHub Pages">
 <img class="lang-es" src="../assets/icons/github.png" alt="GitHub Pages para hosting">
 </div>
-<h3 class="lang-en">Challenges and how they were solved</h3>
-<h3 class="lang-es">Retos y cómo se resolvieron</h3>
-<ul class="simple-list">
+<h3 class="tw-text-slate-100 tw-text-base tw-font-semibold">
+<span class="lang-en">Challenges and how they were solved</span>
+<span class="lang-es">Retos y cómo se resolvieron</span>
+</h3>
+<ul class="simple-list tw-text-sm tw-text-slate-300">
 <li class="lang-en"><strong>Local permissions and environment constraints</strong><br>File edits were restricted outside the web project directory and Node/npm were not available in the assistant environment. The solution was to drive setup from the user’s machine: initialize the Worker locally, install Wrangler, and keep portfolio edits within the web project.</li>
 <li class="lang-es"><strong>Restricciones de permisos y entorno local</strong><br>Ediciones de archivos restringidas fuera del directorio web y ausencia de Node/npm en el entorno del asistente. La solución fue realizar la configuración desde la máquina del usuario: inicializar el Worker localmente, instalar Wrangler y mantener los cambios del portafolio dentro del proyecto web.</li>
 <li class="lang-en"><strong>PowerShell execution policy blocking npx</strong><br>PowerShell refused to run npx due to execution policy. The workaround was to use the Node.js command prompt or update the execution policy, enabling Wrangler commands.</li>
@@ -100,6 +109,7 @@
 <li class="lang-en"><strong>Clean separation of concerns</strong><br>The Worker exposes a narrow, normalized JSON surface; the frontend merges static asset catalog with live fields and renders via React + SVG. This made debugging and iteration straightforward.</li>
 <li class="lang-es"><strong>Separación clara de responsabilidades</strong><br>El Worker expone una superficie JSON normalizada y pequeña; el frontend combina un catálogo estático con campos en vivo y renderiza con React + SVG. Esto facilitó la depuración y la iteración.</li>
 </ul>
+</div>
 </div>
 </section>
 <section id="contact" class="section">

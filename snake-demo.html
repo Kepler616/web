@@ -150,12 +150,19 @@ display: block;
 </section>
 		<section class="section section-alt">
 <div class="container">
-<h2 class="lang-en">Project Overview</h2>
-<h2 class="lang-es">Project Overview</h2>
+<div class="tw-bg-slate-950 tw-border tw-border-slate-800 tw-rounded-xl tw-p-4 tw-flex tw-flex-col tw-gap-4">
+<h2 class="tw-text-slate-100 tw-text-lg tw-font-semibold">
+<span class="lang-en">Project Overview</span>
+<span class="lang-es">Project Overview</span>
+</h2>
+<div class="tw-text-sm tw-text-slate-300">
 <p class="lang-en">This demo focuses on grid based movement, collision detection and a clear separation between game state, rendering and input handling. The goal is to keep the UI shell minimal while showing how a small custom game loop can integrate cleanly with the rest of the site.</p>
 <p class="lang-es">Este demo se enfoca en movimiento basado en grilla, detección de colisiones y una separación clara entre el estado del juego, el renderizado y el manejo de inputs. El objetivo es mantener una capa de UI mínima mientras se muestra cómo un loop de juego pequeño puede integrarse de forma limpia con el resto del sitio.</p>
-<h3 class="lang-en">Tools</h3>
-<h3 class="lang-es">Herramientas</h3>
+</div>
+<h3 class="tw-text-slate-100 tw-text-base tw-font-semibold">
+<span class="lang-en">Tools</span>
+<span class="lang-es">Herramientas</span>
+</h3>
 <div class="tools-logos">
 <img class="lang-en" src="assets/icons/4.png" alt="Custom JavaScript game logic">
 <img class="lang-es" src="assets/icons/4.png" alt="Lógica de juego en JavaScript">
@@ -166,9 +173,11 @@ display: block;
 <img class="lang-en" src="assets/icons/github.png" alt="GitHub Pages">
 <img class="lang-es" src="assets/icons/github.png" alt="GitHub Pages para hosting del demo">
 </div>
-<h3 class="lang-en">Challenges and how they were solved</h3>
-<h3 class="lang-es">Retos y cómo se resolvieron</h3>
-<ul class="simple-list">
+<h3 class="tw-text-slate-100 tw-text-base tw-font-semibold">
+<span class="lang-en">Challenges and how they were solved</span>
+<span class="lang-es">Retos y cómo se resolvieron</span>
+</h3>
+<ul class="simple-list tw-text-sm tw-text-slate-300">
 <li class="lang-en"><strong>Keeping the game loop lightweight</strong><br>The game needed smooth movement without overcomplicating the engine. The solution was to use a simple fixed-timestep loop with a grid based coordinate system that keeps updates predictable and easy to debug.</li>
 <li class="lang-es"><strong>Mantener un loop de juego liviano</strong><br>El juego debía tener movimiento fluido sin sobrecomplicar el engine. La solución fue usar un loop de timestep fijo con un sistema de coordenadas en grilla que mantiene las actualizaciones predecibles y fáciles de depurar.</li>
 <li class="lang-en"><strong>Separating rendering from game state</strong><br>Mixing DOM changes with game logic makes debugging harder. The implementation keeps state updates and collision checks in pure JavaScript structures, and uses the canvas solely for drawing the current frame.</li>
@@ -179,7 +188,8 @@ display: block;
 <li class="lang-es"><strong>Persistir el puntaje más alto de forma sencilla</strong><br>El juego necesita una forma simple de recordar la mejor partida. La solución fue usar almacenamiento del navegador con validaciones básicas para que el juego siga funcionando incluso donde el storage es limitado.</li>
 </ul>
 </div>
-		</section>
+</div>
+</section>
 		<section id="contact" class="section">
 			<div class="container">
 				<h2 class="lang-en">Contact</h2>
