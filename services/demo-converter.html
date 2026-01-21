@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Converter Demo | Kendall Mendoza</title>
+<link rel="stylesheet" href="../styles.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="../assets/icons/favicon_io/site.webmanifest">
+<link rel="icon" href="../assets/icons/favicon_io/favicon.ico">
+</head>
+<body>
+<header class="site-header">
+<div class="container header-content">
+<div class="header-main">
+<a href="../index.html" style="display:flex;align-items:center;">
+<img src="../assets/icons/km1.png" alt="Kendall Mendoza icon" class="site-logo">
+</a>
+<div>
+<h1 class="name">KENDALL MENDOZA</h1>
+<p class="role lang-en">Web Development Specialist & Technical Marketing</p>
+<p class="role lang-es">Especialista en Desarrollo Web y Marketing Técnico</p>
+</div>
+</div>
+<div class="header-bottom">
+<nav class="main-nav">
+<a href="../index.html#summary" class="lang-en">Home</a>
+<a href="../index.html#summary" class="lang-es">Inicio</a>
+<a href="live-demos.html" class="lang-en">Back to Demos</a>
+<a href="live-demos.html" class="lang-es">Volver a Demos</a>
+<select id="language-select" class="language-select">
+<option value="en" selected>English</option>
+<option value="es">Español</option>
+</select>
+</nav>
+</div>
+</div>
+</header>
+<main>
+<section class="section">
+<div class="container">
+<h2 class="lang-en">Image Format Converter</h2>
+<h2 class="lang-es">Conversor de Formatos de Imagen</h2>
+<p class="lang-en">A Python-powered tool to convert images between formats (JPG, PNG, WEBP).</p>
+<p class="lang-es">Una herramienta impulsada por Python para convertir imágenes entre formatos (JPG, PNG, WEBP).</p>
+
+<div class="demo-card" style="margin-top: 2rem; max-width: 600px;">
+    <div class="demo-header">
+        <h3>Converter Interface</h3>
+        <span class="demo-tag python">Python Backend</span>
+    </div>
+    <div class="demo-content">
+        <p class="lang-en">Upload an image and select the target format.</p>
+        <p class="lang-es">Sube una imagen y selecciona el formato deseado.</p>
+        
+        <div class="converter-ui" style="display: flex; flex-direction: column; gap: 1rem;">
+            <input type="file" id="image-input" accept="image/*" class="demo-input" style="padding: 10px;">
+            
+            <select id="format-select" class="demo-input" style="width: 100%; padding: 10px;">
+                <option value="JPEG">JPG (JPEG)</option>
+                <option value="PNG">PNG</option>
+                <option value="WEBP">WEBP</option>
+                <option value="BMP">BMP</option>
+                <option value="TIFF">TIFF</option>
+            </select>
+            
+            <button id="convert-btn" class="btn btn-primary">Convert / Convertir</button>
+        </div>
+        <div id="conversion-status" class="status-message" style="display: none;"></div>
+        
+        <div class="tech-note">
+            <small>
+                <strong>Technical Note:</strong><br>
+                <span class="lang-en">Processing is done using the Pillow library on a Flask server.</span>
+                <span class="lang-es">El procesamiento se realiza usando la librería Pillow en un servidor Flask.</span>
+            </small>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-content">
+<p class="lang-en">© <span id="year"></span> Kendall Mendoza. All rights reserved.</p>
+<p class="lang-es">© <span id="year"></span> Kendall Mendoza. Todos los derechos reservados.</p>
+</div>
+</footer>
+<script>
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+yearSpan.textContent = new Date().getFullYear();
+}
+const languageSelect = document.getElementById("language-select");
+    if (languageSelect) {
+      const savedLang = localStorage.getItem("preferredLanguage");
+      if (savedLang === "es" || savedLang === "en") {
+        languageSelect.value = savedLang;
+        document.documentElement.setAttribute("data-lang", savedLang);
+        document.documentElement.setAttribute("lang", savedLang);
+      }
+      languageSelect.addEventListener("change", function () {
+        var value = languageSelect.value === "es" ? "es" : "en";
+        localStorage.setItem("preferredLanguage", value);
+        document.documentElement.setAttribute("data-lang", value);
+        document.documentElement.setAttribute("lang", value);
+      });
+    }
+</script>
+<script src="../assets/js/image-converter.js"></script>
+</body>
+</html>

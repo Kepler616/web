@@ -152,3 +152,10 @@ The React bundle is loaded from a CDN and rendered into a single root node. This
 The dashboard uses a ten second polling interval for both the asset overview and the selected asset chart. The interval is coordinated in the frontend so the UI can show a clear connection status message that reflects the last load state.
 
 Each request hits the Worker, which in turn reads from the upstream API with short lived caching. This pattern produces a steady rhythm of refreshes without overwhelming the public API and makes it easy to extend or change the cadence later.
+
+
+
+Coded By Kendall Mendoza - GitHub @Kepler616
+Source code is publicly accessible for viewing only.
+Reuse, modification, or redistribution is not permitted without explicit permission.
+© Kendall Mendoza. 2026 All rights reserved.
